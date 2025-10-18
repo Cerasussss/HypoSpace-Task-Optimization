@@ -1,0 +1,11 @@
+llm:
+  type: qwen_local
+  models:
+    qwen_local: "/path/to/your/qwen/model"  # 修改为你的本地模型路径
+  temperature: 0.7
+  max_tokens: 512
+
+benchmark:
+  checkpoint: "checkpoints"
+  verbose: true
+  output_pattern: "results/{dataset_name}_{model}.json"

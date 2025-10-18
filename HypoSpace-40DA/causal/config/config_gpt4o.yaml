@@ -1,0 +1,17 @@
+llm:
+  type: openrouter
+  models:
+    openrouter: "qwen/qwen3-max"
+    openai: Null
+    anthropic: Null
+  api_keys:
+    openrouter: "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"
+    openai: ""
+    anthropic: ""
+  temperature: 0.7
+
+benchmark:
+  checkpoint: "checkpoints"
+  verbose: true
+  output_pattern: "results/{dataset_name}_{model}.json"
+
