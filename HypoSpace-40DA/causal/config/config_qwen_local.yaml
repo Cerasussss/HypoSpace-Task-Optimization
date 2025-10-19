@@ -9,3 +9,6 @@ benchmark:
   checkpoint: "checkpoints"
   verbose: true
   output_pattern: "results/{dataset_name}_{model}.json"
+  diversity:
+    enable_rag: true
+    examples_file: "few_shot_examples.json"

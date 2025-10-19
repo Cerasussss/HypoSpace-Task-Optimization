@@ -1,0 +1,222 @@
+{
+  "metadata": {
+    "description": "Few-shot examples for causal graph discovery",
+    "nodes": ["A", "B", "C"],
+    "creation_date": "2025-10-19",
+    "source_dataset": "n3_all_observations.json"
+  },
+  "examples": [
+    {
+      "id": "example_001",
+      "input": {
+        "observations": [
+          {
+            "perturbed_node": "A",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(A) -> A:0 B:0 C:0"
+          }
+        ]
+      },
+      "ground_truth_graphs": 12,
+      "hypotheses": [
+        {
+          "hypothesis": "Graph: No edges",
+          "explanation": "Since perturbing A results in no changes to B or C, there are no direct causal relationships from A to B or C. This could indicate that A is a root node with no outgoing edges, or that B and C are not causally influenced by A in this system."
+        },
+        {
+          "hypothesis": "Graph: B->A",
+          "explanation": "B causally influences A, but C does not influence either. When A is perturbed, it doesn't affect B or C because the causal relationship is unidirectional from B to A."
+        },
+        {
+          "hypothesis": "Graph: C->A",
+          "explanation": "C causally influences A, but B does not influence either. When A is perturbed, it doesn't affect B or C because the causal relationship flows from C to A, not the other way around."
+        },
+        {
+          "hypothesis": "Graph: B->A, C->A",
+          "explanation": "Both B and C causally influence A. When A is perturbed, it doesn't affect B or C because the causal relationships are directed toward A rather than away from it."
+        },
+        {
+          "hypothesis": "Graph: B->A, C->B",
+          "explanation": "B influences A and C influences B. The causal chain is C->B->A. When A is perturbed, it doesn't affect B or C because information flows in the opposite direction."
+        }
+      ]
+    },
+    {
+      "id": "example_002",
+      "input": {
+        "observations": [
+          {
+            "perturbed_node": "A",
+            "effects": {
+              "A": 0,
+              "B": 1,
+              "C": 1
+            },
+            "string": "Perturb(A) -> A:0 B:1 C:1"
+          }
+        ],
+        "ground_truth_graphs": 5
+      },
+      "hypotheses": [
+        {
+          "hypothesis": "Graph: A->B, A->C",
+          "explanation": "When A is perturbed, both B and C change, indicating direct causal relationships from A to both B and C. This is the simplest explanation where A is a common cause of both B and C."
+        },
+        {
+          "hypothesis": "Graph: A->B, B->C",
+          "explanation": "A causes B, and B in turn causes C, creating a causal chain. When A is perturbed, it affects B directly and C indirectly through B."
+        },
+        {
+          "hypothesis": "Graph: A->C, C->B",
+          "explanation": "A causes C, and C in turn causes B, creating an indirect effect from A to B through C. This explains why both B and C change when A is perturbed."
+        },
+        {
+          "hypothesis": "Graph: A->B, A->C, B->C",
+          "explanation": "A directly causes both B and C, and there is also a direct causal relationship from B to C. This creates multiple pathways for A's influence to reach C."
+        },
+        {
+          "hypothesis": "Graph: A->B, A->C, C->B",
+          "explanation": "A directly causes both B and C, and there is also a direct causal relationship from C to B. This structure allows A to influence B both directly and through C."
+        }
+      ]
+    },
+    {
+      "id": "example_003",
+      "input": {
+        "observations": [
+          {
+            "perturbed_node": "A",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(A) -> A:0 B:0 C:0"
+          },
+          {
+            "perturbed_node": "B",
+            "effects": {
+              "A": 1,
+              "B": 0,
+              "C": 1
+            },
+            "string": "Perturb(B) -> A:1 B:0 C:1"
+          }
+        ],
+        "ground_truth_graphs": 3
+      },
+      "hypotheses": [
+        {
+          "hypothesis": "Graph: B->A, B->C",
+          "explanation": "When B is perturbed, both A and C change, indicating that B causally influences both A and C. When A is perturbed, there are no changes to B or C, which is consistent with B being the source of influence rather than A."
+        },
+        {
+          "hypothesis": "Graph: B->C, C->A",
+          "explanation": "B influences C, and C in turn influences A. When B is perturbed, it affects C which then affects A. When A is perturbed, it doesn't affect B or C since the causal flow is in the opposite direction."
+        },
+        {
+          "hypothesis": "Graph: B->A, B->C, C->A",
+          "explanation": "B directly influences both A and C, and there is also a direct influence from C to A. This creates multiple pathways for causal effects, explaining the observations from both perturbations."
+        },
+        {
+          "hypothesis": "Graph: A->B, B->A, B->C",
+          "explanation": "There is a bidirectional relationship between A and B, and B also influences C. When A is perturbed, B would change but then immediately influence A back, resulting in no net change. When B is perturbed, it affects both A and C directly."
+        },
+        {
+          "hypothesis": "Graph: A->C, B->A, B->C",
+          "explanation": "A influences C, and B influences both A and C. When A is perturbed, it doesn't affect B or C because B is the source of influence. When B is perturbed, it affects both A and C directly."
+        }
+      ]
+    },
+    {
+      "id": "example_004",
+      "input": {
+        "observations": [
+          {
+            "perturbed_node": "A",
+            "effects": {
+              "A": 0,
+              "B": 1,
+              "C": 0
+            },
+            "string": "Perturb(A) -> A:0 B:1 C:0"
+          },
+          {
+            "perturbed_node": "B",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 1
+            },
+            "string": "Perturb(B) -> A:0 B:0 C:1"
+          },
+          {
+            "perturbed_node": "C",
+            "effects": {
+              "A": 1,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(C) -> A:1 B:0 C:0"
+          }
+        ],
+        "ground_truth_graphs": 1
+      },
+      "hypotheses": [
+        {
+          "hypothesis": "Graph: A->B, B->C, C->A",
+          "explanation": "This creates a cyclic causal structure. When A is perturbed, it affects B which then affects C. When B is perturbed, it affects C. When C is perturbed, it affects A. This cyclic structure explains all observations."
+        },
+        {
+          "hypothesis": "Graph: A->B, B->C, A->C",
+          "explanation": "A influences both B and C directly, and B also influences C. This creates multiple pathways from A to C. When A is perturbed, both B and C change. When B is perturbed, only C changes. When C is perturbed, only A changes."
+        }
+      ]
+    },
+    {
+      "id": "example_005",
+      "input": {
+        "observations": [
+          {
+            "perturbed_node": "A",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(A) -> A:0 B:0 C:0"
+          },
+          {
+            "perturbed_node": "B",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(B) -> A:0 B:0 C:0"
+          },
+          {
+            "perturbed_node": "C",
+            "effects": {
+              "A": 0,
+              "B": 0,
+              "C": 0
+            },
+            "string": "Perturb(C) -> A:0 B:0 C:0"
+          }
+        ],
+        "ground_truth_graphs": 1
+      },
+      "hypotheses": [
+        {
+          "hypothesis": "Graph: No edges",
+          "explanation": "No matter which node is perturbed, there are no changes to any other nodes. This indicates that there are no causal relationships between any of the nodes in the system."
+        }
+      ]
+    }
+  ]
+}
