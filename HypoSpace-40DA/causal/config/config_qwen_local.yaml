@@ -1,7 +1,7 @@
 llm:
   type: qwen_local
   models:
-    qwen_local: "/path/to/your/qwen/model"  # 修改为你的本地模型路径
+    qwen_local: "/opt/data/private/HypoSpace-40DA/models/qwen/Qwen2-7B-Instruct"  # 修改为你的本地模型路径
   temperature: 0.7
   max_tokens: 512
 
