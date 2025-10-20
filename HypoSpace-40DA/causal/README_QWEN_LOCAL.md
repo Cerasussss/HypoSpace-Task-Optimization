@@ -50,15 +50,14 @@ benchmark:
 ## 运行评估
 
 使用以下命令运行评估：
-
 ```bash
 cd /opt/data/private/HypoSpace-40DA/causal
-python run_causal_benchmark.py \
-  --dataset "../datasets/node03/n3_all_observations.json" \
-  --config "config/config_qwen_local.yaml" \
-  --n-samples 30 \
-  --query-multiplier 1.0 \
-  --seed 33550336
+nohup python -u run_causal_benchmark.py \
+      --dataset "../datasets/node03/n3_all_observations.json" \
+      --config "config/config_qwen_local.yaml" \
+      --n-samples "30" \
+      --query-multiplier "1.0" \
+      --seed "33550336" > qwen_local_node03 2>&1 &
 ```
 
 ## 优势
