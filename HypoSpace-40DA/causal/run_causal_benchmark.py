@@ -414,7 +414,8 @@ class CausalBenchmarkEnhanced:
         rag_context = None
         if self.rag_module:
             try:
-                similar_examples = self.rag_module.retrieve_similar_examples(observations, top_k=3)
+                # Use diverse retrieval to get more varied examples
+                similar_examples = self.rag_module.retrieve_diverse_examples(observations, top_k=3)
                 rag_context = self.rag_module.format_examples_for_prompt(similar_examples)
             except Exception as e:
                 print(f"Warning: Error using RAG module: {e}")
