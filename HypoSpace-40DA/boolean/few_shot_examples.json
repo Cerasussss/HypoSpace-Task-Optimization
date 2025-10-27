@@ -1,0 +1,247 @@
+{
+  "metadata": {
+    "description": "Few-shot examples for Boolean expression discovery",
+    "variables": [
+      "x",
+      "y"
+    ],
+    "operators": [
+      "NOT",
+      "OR",
+      "AND"
+    ],
+    "max_depth": 2,
+    "creation_date": "2025-10-27",
+    "source_dataset": "boolean_complete_dataset.json",
+    "version": "1.0"
+  },
+  "examples": [
+    {
+      "id": "example_001",
+      "complexity": "low",
+      "observations": [
+        {
+          "inputs": {
+            "x": 0,
+            "y": 0
+          },
+          "output": 0,
+          "string": "(x=0, y=0) -> 0"
+        }
+      ],
+      "ground_truth_expressions": 14,
+      "expressions": [
+        {
+          "expression": "x",
+          "explanation": "The output matches the value of variable x. When x=0, output=0. This is a simple identity function where the result is directly determined by the value of x.",
+          "confidence": "medium"
+        },
+        {
+          "expression": "y",
+          "explanation": "The output matches the value of variable y. When y=0, output=0. This is a simple identity function where the result is directly determined by the value of y.",
+          "confidence": "medium"
+        },
+        {
+          "expression": "x AND y",
+          "explanation": "The output is 1 only when both x and y are 1. In this case, both x and y are 0, so the output is 0. This represents a logical conjunction where both inputs must be true for the output to be true.",
+          "confidence": "high"
+        },
+        {
+          "expression": "x AND NOT x",
+          "explanation": "This expression is always false regardless of the input values because x AND NOT x is a contradiction. When x=0, NOT x=1, so 0 AND 1 = 0.",
+          "confidence": "high"
+        },
+        {
+          "expression": "y AND NOT y",
+          "explanation": "This expression is always false regardless of the input values because y AND NOT y is a contradiction. When y=0, NOT y=1, so 0 AND 1 = 0.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "example_002",
+      "complexity": "low",
+      "observations": [
+        {
+          "inputs": {
+            "x": 0,
+            "y": 1
+          },
+          "output": 1,
+          "string": "(x=0, y=1) -> 1"
+        }
+      ],
+      "ground_truth_expressions": 17,
+      "expressions": [
+        {
+          "expression": "y",
+          "explanation": "The output matches the value of variable y. When y=1, output=1. This is a simple identity function where the result is directly determined by the value of y.",
+          "confidence": "high"
+        },
+        {
+          "expression": "NOT x",
+          "explanation": "The output is the negation of x. When x=0, NOT x=1, which matches the output. This represents a logical negation where the output is true when x is false.",
+          "confidence": "high"
+        },
+        {
+          "expression": "x OR y",
+          "explanation": "The output is 1 when either x or y (or both) are 1. In this case, x=0 and y=1, so x OR y = 0 OR 1 = 1. This represents a logical disjunction where the output is true if at least one input is true.",
+          "confidence": "high"
+        },
+        {
+          "expression": "y OR NOT y",
+          "explanation": "This expression is always true regardless of the input values because y OR NOT y is a tautology. When y=1, NOT y=0, so 1 OR 0 = 1.",
+          "confidence": "high"
+        },
+        {
+          "expression": "x OR NOT x",
+          "explanation": "This expression is always true regardless of the input values because x OR NOT x is a tautology. When x=0, NOT x=1, so 0 OR 1 = 1.",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "example_003",
+      "complexity": "medium",
+      "observations": [
+        {
+          "inputs": {
+            "x": 0,
+            "y": 0
+          },
+          "output": 0,
+          "string": "(x=0, y=0) -> 0"
+        },
+        {
+          "inputs": {
+            "x": 1,
+            "y": 1
+          },
+          "output": 1,
+          "string": "(x=1, y=1) -> 1"
+        }
+      ],
+      "ground_truth_expressions": 8,
+      "expressions": [
+        {
+          "expression": "x",
+          "explanation": "The output matches the value of variable x. When x=0, output=0; when x=1, output=1. This is a simple identity function where the result is directly determined by the value of x.",
+          "confidence": "high"
+        },
+        {
+          "expression": "y",
+          "explanation": "The output matches the value of variable y. When y=0, output=0; when y=1, output=1. This is a simple identity function where the result is directly determined by the value of y.",
+          "confidence": "high"
+        },
+        {
+          "expression": "x AND y",
+          "explanation": "The output is 1 only when both x and y are 1. When x=0 and y=0, output=0; when x=1 and y=1, output=1. This represents a logical conjunction where both inputs must be true for the output to be true.",
+          "confidence": "high"
+        },
+        {
+          "expression": "x OR y",
+          "explanation": "The output is 1 when either x or y (or both) are 1. When x=0 and y=0, output=0; when x=1 and y=1, output=1. This represents a logical disjunction where the output is true if at least one input is true.",
+          "confidence": "high"
+        },
+        {
+          "expression": "NOT (x AND NOT x)",
+          "explanation": "This expression simplifies to always true because x AND NOT x is always false, and NOT false is true. However, it matches the observations: when x=0, output=0 (this doesn't match, so this is not a valid expression for this observation set).",
+          "confidence": "low"
+        }
+      ]
+    },
+    {
+      "id": "example_004",
+      "complexity": "high",
+      "observations": [
+        {
+          "inputs": {
+            "x": 0,
+          "y": 0
+          },
+          "output": 0,
+          "string": "(x=0, y=0) -> 0"
+        },
+        {
+          "inputs": {
+            "x": 0,
+            "y": 1
+          },
+          "output": 1,
+          "string": "(x=0, y=1) -> 1"
+        },
+        {
+          "inputs": {
+            "x": 1,
+            "y": 0
+          },
+          "output": 1,
+          "string": "(x=1, y=0) -> 1"
+        }
+      ],
+      "ground_truth_expressions": 1,
+      "expressions": [
+        {
+          "expression": "x OR y",
+          "explanation": "The output is 1 when either x or y (or both) are 1. This matches all observations: when x=0,y=0: 0 OR 0 = 0; when x=0,y=1: 0 OR 1 = 1; when x=1,y=0: 1 OR 0 = 1. This represents a logical disjunction where the output is true if at least one input is true.",
+          "confidence": "high"
+        },
+        {
+          "expression": "NOT (x AND y)",
+          "explanation": "The output is 0 only when both x and y are 1. This matches all observations: when x=0,y=0: NOT(0 AND 0) = NOT(0) = 1 (doesn't match, so this is not valid).",
+          "confidence": "low"
+        },
+        {
+          "expression": "x OR NOT (x AND y)",
+          "explanation": "This is a more complex expression. When x=0,y=0: 0 OR NOT(0 AND 0) = 0 OR NOT(0) = 0 OR 1 = 1 (doesn't match first observation).",
+          "confidence": "low"
+        }
+      ]
+    },
+    {
+      "id": "example_005",
+      "complexity": "medium",
+      "observations": [
+        {
+          "inputs": {
+            "x": 0,
+            "y": 1
+          },
+          "output": 0,
+          "string": "(x=0, y=1) -> 0"
+        },
+        {
+          "inputs": {
+            "x": 1,
+            "y": 0
+          },
+          "output": 0,
+          "string": "(x=1, y=0) -> 0"
+        }
+      ],
+      "ground_truth_expressions": 4,
+      "expressions": [
+        {
+          "expression": "x AND y",
+          "explanation": "The output is 1 only when both x and y are 1. When x=0,y=1: 0 AND 1 = 0; when x=1,y=0: 1 AND 0 = 0. This matches both observations and represents a logical conjunction.",
+          "confidence": "high"
+        },
+        {
+          "expression": "NOT (x OR y)",
+          "explanation": "The output is 1 only when both x and y are 0. When x=0,y=1: NOT(0 OR 1) = NOT(1) = 0; when x=1,y=0: NOT(1 OR 0) = NOT(1) = 0. This matches both observations and represents the negation of a disjunction (NOR).",
+          "confidence": "high"
+        },
+        {
+          "expression": "x AND NOT x",
+          "explanation": "This expression is always false regardless of the input values because x AND NOT x is a contradiction. When x=0: 0 AND 1 = 0; when x=1: 1 AND 0 = 0. This matches both observations.",
+          "confidence": "high"
+        },
+        {
+          "expression": "y AND NOT y",
+          "explanation": "This expression is always false regardless of the input values because y AND NOT y is a contradiction. When y=1: 1 AND 0 = 0; when y=0: 0 AND 1 = 0. This matches both observations.",
+          "confidence": "high"
+        }
+      ]
+    }
+  ]
+}

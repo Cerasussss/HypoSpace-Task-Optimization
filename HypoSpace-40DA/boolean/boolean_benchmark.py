@@ -19,86 +19,102 @@ import traceback
 # Add parent directory to path if needed
 sys.path.append(str(Path(__file__).parent))
 
-from modules.llm_interface import LLMInterface, OpenRouterLLM, OpenAILLM, AnthropicLLM
+from modules.llm_interface import LLMInterface, OpenRouterLLM, OpenAILLM, AnthropicLLM, QwenLocalLLM
 from boolean_dataset import BooleanExpression, BooleanObservation
 
 
 class BooleanBenchmarkRefined:
-    def __init__(self, complete_dataset_path: str):
+    def __init__(self, complete_dataset_path: str, config: Optional[Dict] = None):
         """
         Initialize benchmark with a complete dataset.
-        
+
         Args:
             complete_dataset_path: Path to the complete Boolean dataset JSON file
+            config: Configuration dictionary (optional)
         """
         with open(complete_dataset_path, 'r') as f:
             self.complete_dataset = json.load(f)
-        
+
         # Extract metadata
         self.mechanistic_opts = self.complete_dataset['metadata']['mechanistic_opts']
         self.metadata = self.complete_dataset['metadata']
         self.variables = self.metadata['variables']
         self.operators = set(self.metadata['operators'])
         self.max_depth = self.metadata['max_depth']
-        
+
         # Flatten all datasets into a single list for sampling
         self.all_observation_sets = []
         for n_obs, datasets in self.complete_dataset['datasets_by_n_observations'].items():
             self.all_observation_sets.extend(datasets)
-        
+
+        # Initialize Universal RAG module if enabled in config and examples file exists
+        self.rag_module = None
+        if config and config.get('benchmark', {}).get('diversity', {}).get('enable_rag', False):
+            examples_file = config.get('benchmark', {}).get('diversity', {}).get('examples_file',
+                                                                                 'few_shot_examples.json')
+            if Path(examples_file).exists():
+                try:
+                    from shared_modules.universal_rag import UniversalRAG
+                    self.rag_module = UniversalRAG(examples_file)
+                    print(f"Universal RAG module initialized with {examples_file}")
+                except ImportError:
+                    print("Warning: Could not import Universal RAG module. Proceeding without RAG.")
+            else:
+                print(f"Warning: Examples file {examples_file} not found. Proceeding without RAG.")
+
         print(f"Loaded complete dataset with {len(self.all_observation_sets)} observation sets")
         print(f"Variables: {', '.join(self.variables)}")
         print(f"Operators: {', '.join(self.operators)}")
         print(f"Max depth: {self.max_depth}")
-    
+
     def sample_observation_sets(self, n_samples: int, seed: Optional[int] = None) -> List[Dict]:
         """
         Sample n observation sets from the complete dataset.
-        
+
         Args:
             n_samples: Number of observation sets to sample
             seed: Random seed for reproducibility
-        
+
         Returns:
             List of sampled observation sets
         """
         if seed is not None:
             random.seed(seed)
             np.random.seed(seed)
-        
+
         # Sample without replacement
         n_available = len(self.all_observation_sets)
         n_to_sample = min(n_samples, n_available)
-        
+
         if n_to_sample < n_samples:
             print(f"Warning: Requested {n_samples} samples but only {n_available} available")
-        
+
         sampled = random.sample(self.all_observation_sets, n_to_sample)
         return sampled
 
-    def create_prompt(self, observations: List[BooleanObservation], 
-                     prior_hypotheses: List[str]) -> str:
+    def create_prompt(self, observations: List[BooleanObservation],
+                      prior_hypotheses: List[str], rag_context: Optional[str] = None) -> str:
         # Build obs_block, prior_block, operators_str ...
-                # Format observations
+        # Format observations
         obs_lines = []
         for obs in observations:
             obs_lines.append(obs.to_string())
         obs_block = "\n".join(obs_lines)
-        
+
         # Format prior hypotheses
         if prior_hypotheses:
             prior_block = "\n".join([f"Expression: {h}" for h in prior_hypotheses])
         else:
             prior_block = "None"
-        
+
         # Build operator description
         op_descriptions = []
         if 'AND' in self.operators: op_descriptions.append("AND (conjunction)")
-        if 'OR'  in self.operators: op_descriptions.append("OR (disjunction)")
+        if 'OR' in self.operators: op_descriptions.append("OR (disjunction)")
         if 'NOT' in self.operators: op_descriptions.append("NOT (negation)")
         if 'XOR' in self.operators: op_descriptions.append("XOR (exclusive or)")
         if 'NOR' in self.operators: op_descriptions.append("NOR (NOT (x OR y))")
-        
+
         operators_str = ", ".join(op_descriptions)
 
         # Pull mechanistic opts from the loaded dataset
@@ -134,6 +150,9 @@ class BooleanBenchmarkRefined:
 
         rules_text = "\n        ".join(eq_rules)
 
+        # Add RAG context if provided
+        rag_block = rag_context if rag_context else ""
+
         prompt = f"""You are given partial observations of a Boolean function with variables: {', '.join(self.variables)}
 
             Allowed operators: {operators_str}
@@ -144,6 +163,7 @@ class BooleanBenchmarkRefined:
             Prior expressions generated (avoid repeating any expression 
             that is equivalent under the rules below):
             {prior_block}
+            {rag_block}
 
             Task: Generate a single Boolean expression that is consistent with ALL observations.
 
@@ -163,36 +183,36 @@ class BooleanBenchmarkRefined:
             - Use lowercase for variables: x, y
             - Use parentheses for grouping when needed
             - Start your response with "Expression: " followed by the expression
-            
+
             Examples of correct format:
             Expression: x AND y
             Expression: (x OR y) AND NOT x
             Expression: NOT (x AND y)
             Expression: NOR(x, y)
-            
+
             DO NOT use formats like:
             - \\(x \\land y\\)  (LaTeX)
             - `x AND y`  (markdown)
             - x ∧ y  (mathematical symbols)
             """
         return prompt
-    
+
     def parse_llm_response(self, response: str) -> Optional[str]:
         """Parse LLM response to extract Boolean expression."""
         if not isinstance(response, str):
             return None
-        
+
         response = response.strip()
-        
+
         # Clean common formatting issues
         def clean_expression(expr: str) -> str:
             # Remove LaTeX delimiters
             expr = re.sub(r'\\[()\[\]]', '', expr)
             expr = re.sub(r'\$+', '', expr)
-            
+
             # Remove markdown backticks
             expr = expr.strip('`')
-            
+
             # Convert LaTeX/math symbols to text
             expr = expr.replace('\\land', 'AND')
             expr = expr.replace('\\lor', 'OR')
@@ -204,16 +224,16 @@ class BooleanBenchmarkRefined:
             expr = expr.replace('∨', 'OR')
             expr = expr.replace('¬', 'NOT')
             expr = expr.replace('⊕', 'XOR')
-            
+
             # Remove \text{} wrappers
             expr = re.sub(r'\\text\{([^}]+)\}', r'\1', expr)
-            
+
             # Clean up extra spaces and symbols
             expr = re.sub(r'\*+$', '', expr)  # Remove trailing asterisks
             expr = expr.strip('"\'').rstrip('.,;')
-            
+
             return expr.strip()
-        
+
         # Look for "Expression:" line
         lines = response.split('\n')
         for line in lines:
@@ -223,17 +243,17 @@ class BooleanBenchmarkRefined:
                     expr = clean_expression(parts[1])
                     if expr:
                         return expr
-        
+
         # Fallback: try first non-empty line with operators
         for line in lines:
             line = line.strip()
             if line and not line.startswith('#'):
                 cleaned = clean_expression(line)
-                if any(op in cleaned.upper() for op in ['AND','OR','NOT','XOR','NOR']):
+                if any(op in cleaned.upper() for op in ['AND', 'OR', 'NOT', 'XOR', 'NOR']):
                     return cleaned
                 if all(c.isalnum() or c in '() ' for c in cleaned):
                     return cleaned
-        
+
         return None
 
     def get_expression_mechanistic_key(self, expr_str: str) -> Optional[Tuple]:
@@ -242,55 +262,55 @@ class BooleanBenchmarkRefined:
             return expr.mechanistic_key(**self.mechanistic_opts)
         except:
             return None
-    
+
     def _in_space(self, expr_str: str) -> bool:
         """Check if expression meets all space constraints (variables, operators, depth, no constants)."""
         try:
             expr = BooleanExpression(expr_str, self.variables, self.operators)
-            
+
             if expr.sympy_expr is None:
                 return False
-            
+
             # Check variables
             allowed_symbols = {sp.symbols(v) for v in self.variables}
             if not expr.sympy_expr.free_symbols.issubset(allowed_symbols):
                 return False
-            
+
             # Check operators
             if not self._check_operators_in_ast(expr.sympy_expr, self.operators):
                 return False
-            
+
             # Check no constants
             for node in sp.preorder_traversal(expr.sympy_expr):
                 if isinstance(node, (sp.logic.boolalg.BooleanTrue, sp.logic.boolalg.BooleanFalse)):
                     return False
-            
+
             # Check depth
             if self._get_ast_depth(expr.sympy_expr) > self.max_depth:
                 return False
-            
+
             return True
         except:
             return False
-    
+
     def _get_ast_depth(self, sympy_expr) -> int:
         """Calculate the true AST depth of an expression."""
         if sympy_expr is None:
             return 0
-        
+
         # Leaf nodes (variables, constants) have depth 0
         if isinstance(sympy_expr, sp.Symbol):
             return 0
         if isinstance(sympy_expr, (sp.logic.boolalg.BooleanTrue, sp.logic.boolalg.BooleanFalse)):
             return 0
-        
+
         # For operators, depth is 1 + max depth of children
         if hasattr(sympy_expr, 'args') and len(sympy_expr.args) > 0:
             child_depths = [self._get_ast_depth(arg) for arg in sympy_expr.args]
             return 1 + max(child_depths)
-        
+
         return 0
-    
+
     def _check_operators_in_ast(self, sympy_expr, allowed_ops: Set[str]) -> bool:
         if sympy_expr is None:
             return False
@@ -322,44 +342,44 @@ class BooleanBenchmarkRefined:
             if hasattr(node, 'args'):
                 stack.extend(node.args)
         return True
-    
+
     def validate_expression(self, expr_str: str, observations: List[BooleanObservation]) -> Tuple[bool, Optional[Dict]]:
         """Validate if expression is consistent with observations and meets constraints."""
         try:
             # Now create expression and validate
             expr = BooleanExpression(expr_str, self.variables, self.operators)
-            
+
             # Check if expression uses only allowed variables
             if expr.sympy_expr is not None:
                 allowed_symbols = {sp.symbols(v) for v in self.variables}
                 free_symbols = expr.sympy_expr.free_symbols
                 if not free_symbols.issubset(allowed_symbols):
                     return False, None
-                
+
                 # Check operators using AST traversal
                 if not self._check_operators_in_ast(expr.sympy_expr, self.operators):
                     return False, None
-                
+
                 # Disallow constants (True/False) to maintain consistent space
                 for node in sp.preorder_traversal(expr.sympy_expr):
                     if isinstance(node, (sp.logic.boolalg.BooleanTrue, sp.logic.boolalg.BooleanFalse)):
                         return False, None
-            
+
             # Check expression depth using AST
             if expr.sympy_expr is not None:
                 ast_depth = self._get_ast_depth(expr.sympy_expr)
                 if ast_depth > self.max_depth:
                     return False, None
-            
+
             # Check consistency with observations
             for obs in observations:
                 if expr.evaluate(obs.inputs) != obs.output:
                     return False, None
-            
+
             return True, expr.truth_table
         except:
             return False, None
-    
+
     def _classify_error(self, error_message: str) -> str:
         """Classify the type of error from the error message with more detail."""
         if "Expecting value" in error_message:
@@ -396,49 +416,49 @@ class BooleanBenchmarkRefined:
             if match:
                 return f"http_error_{match.group(1)}"
             return "unknown_error"
-    
+
     def get_expression_depth(self, expr_str: str) -> int:
         """Calculate the depth of a Boolean expression."""
         # Simple heuristic: count maximum nesting level of parentheses
         max_depth = 0
         current_depth = 0
-        
+
         for char in expr_str:
             if char == '(':
                 current_depth += 1
                 max_depth = max(max_depth, current_depth)
             elif char == ')':
                 current_depth -= 1
-        
+
         # Also check for operators without parentheses
         if max_depth == 0:
             # Count operators to estimate depth
             expr_upper = expr_str.upper()
-            if any(op in expr_upper for op in ['AND','OR','NOT','XOR','NOR']):
+            if any(op in expr_upper for op in ['AND', 'OR', 'NOT', 'XOR', 'NOR']):
                 max_depth = 1
-        
+
         return max_depth
-    
+
     def evaluate_single_observation_set(
-        self,
-        llm: LLMInterface,
-        observation_set: Dict,
-        n_queries: int = 10,
-        verbose: bool = True,
-        max_retries: int = 5
+            self,
+            llm: LLMInterface,
+            observation_set: Dict,
+            n_queries: int = 10,
+            verbose: bool = True,
+            max_retries: int = 5
     ) -> Dict:
         """
         Evaluate LLM on a single observation set.
-        
+
         Returns:
             Dictionary with evaluation results for this observation set
         """
         # Extract observations and ground truths
         observations = [
-            BooleanObservation(obs['inputs'], obs['output']) 
+            BooleanObservation(obs['inputs'], obs['output'])
             for obs in observation_set['observations']
         ]
-        
+
         ground_truth_expressions = observation_set['ground_truth_expressions']
         gt_truth_tables = []
         gt_mechanistic_keys = []
@@ -452,8 +472,9 @@ class BooleanBenchmarkRefined:
             gt_mech_key = gt.get('mechanistic_key', None)
             if gt_mech_key:
                 # Convert string representation back to tuple if needed (safe parsing)
-                gt_mechanistic_keys.append(ast.literal_eval(gt_mech_key) if isinstance(gt_mech_key, str) else gt_mech_key)
-        
+                gt_mechanistic_keys.append(
+                    ast.literal_eval(gt_mech_key) if isinstance(gt_mech_key, str) else gt_mech_key)
+
         # Track results
         all_hypotheses = []
         valid_hypotheses = []
@@ -463,20 +484,32 @@ class BooleanBenchmarkRefined:
         unique_all_expressions = []
         parse_success_count = 0
         in_space_count = 0
-        
+
         # Track token usage and costs
         total_prompt_tokens = 0
         total_completion_tokens = 0
         total_tokens = 0
         total_cost = 0.0
-        
+
         # Track errors
         errors = []  # List of error details
         error_counts = {}  # Count of each error type
-        
+
+        # Retrieve similar examples using Universal RAG if available
+        rag_context = None
+        if self.rag_module:
+            try:
+                # Convert observations to the format expected by RAG
+                obs_dicts = [{'string': obs.to_string()} for obs in observations]
+                # Use diverse retrieval to get more varied examples
+                similar_examples = self.rag_module.retrieve_diverse_examples(obs_dicts, top_k=3)
+                rag_context = self.rag_module.format_examples_for_prompt(similar_examples, task_type="boolean")
+            except Exception as e:
+                print(f"Warning: Error using Universal RAG module: {e}")
+
         for i in range(n_queries):
-            prompt = self.create_prompt(observations, all_hypotheses)
-            
+            prompt = self.create_prompt(observations, all_hypotheses, rag_context)
+
             # Try to get a valid response
             hypothesis_str = None
             query_error = None
@@ -492,7 +525,7 @@ class BooleanBenchmarkRefined:
                     total_cost += result.get('cost', 0.0)
                 else:
                     response = llm.query(prompt)
-                
+
                 # Check if response is an error
                 if response.startswith("Error querying"):
                     query_error = {
@@ -505,70 +538,70 @@ class BooleanBenchmarkRefined:
                     error_type = query_error['error_type']
                     error_counts[error_type] = error_counts.get(error_type, 0) + 1
                     continue  # Try again
-                
+
                 hypothesis_str = self.parse_llm_response(response)
                 if hypothesis_str:
                     break
-            
+
             # If all attempts failed, record the error
             if not hypothesis_str and query_error:
                 errors.append(query_error)
                 # Store detailed error info in all_hypotheses
                 error_detail = f"[ERROR after {max_retries} attempts] Type: {query_error['error_type']} | {query_error['error_message']}"
                 all_hypotheses.append(error_detail)
-            
+
             elif hypothesis_str:  # Only if we got a valid hypothesis
                 parse_success_count += 1
                 all_hypotheses.append(hypothesis_str)
-                
+
                 # Only count novelty for in-space expressions
                 if self._in_space(hypothesis_str):
                     in_space_count += 1
-                    
+
                     # Check uniqueness among in-space hypotheses (for novelty calculation)
                     all_mech_key = self.get_expression_mechanistic_key(hypothesis_str)
                     if all_mech_key and all_mech_key not in all_unique_mechanistic_keys:
                         all_unique_mechanistic_keys.add(all_mech_key)
                         unique_all_expressions.append(hypothesis_str)
-                
+
                 # Validate expression against observations
                 is_valid, truth_table = self.validate_expression(hypothesis_str, observations)
-                
+
                 if is_valid:
                     valid_hypotheses.append(hypothesis_str)
-                    
+
                     # Check uniqueness among valid hypotheses
                     mech_key = self.get_expression_mechanistic_key(hypothesis_str)
                     if mech_key and mech_key not in unique_mechanistic_keys:
                         unique_mechanistic_keys.add(mech_key)
                         unique_valid_expressions.append(hypothesis_str)
-        
+
         # Calculate metrics
         parse_success_rate = parse_success_count / n_queries if n_queries > 0 else 0
         in_space_rate = in_space_count / n_queries if n_queries > 0 else 0
         valid_rate = len(valid_hypotheses) / n_queries if n_queries > 0 else 0
         novelty_rate = len(unique_all_expressions) / n_queries if n_queries > 0 else 0
         recovery_rate = 0
-        
+
         # Check recovery against ground truths using mechanistic keys (structural matching)
         recovered_gts = set()
         recovered_gt_keys = set()
-        
+
         # Collect mechanistic keys of generated expressions
         generated_mech_keys = set()
         for expr in unique_valid_expressions:
             mech_key = self.get_expression_mechanistic_key(expr)
             if mech_key:
                 generated_mech_keys.add(mech_key)
-        
+
         # Check which ground truths were recovered (structurally)
         for j, gt_key in enumerate(gt_mechanistic_keys):
             if gt_key in generated_mech_keys:
                 recovered_gts.add(j)
                 recovered_gt_keys.add(gt_key)
-        
+
         recovery_rate = len(recovered_gts) / len(gt_mechanistic_keys) if gt_mechanistic_keys else 0
-        
+
         return {
             'observation_set_id': observation_set['observation_set_id'],
             'n_observations': observation_set['n_observations'],
@@ -601,21 +634,21 @@ class BooleanBenchmarkRefined:
                 'error_types': error_counts
             }
         }
-    
+
     def run_benchmark(
-        self,
-        llm: LLMInterface,
-        n_samples: int = 10,
-        n_queries_per_sample: Optional[int] = None,
-        query_multiplier: float = 2.0,
-        seed: Optional[int] = None,
-        verbose: bool = True,
-        checkpoint_dir: str = "checkpoints",
-        run_id: Optional[str] = None
+            self,
+            llm: LLMInterface,
+            n_samples: int = 10,
+            n_queries_per_sample: Optional[int] = None,
+            query_multiplier: float = 2.0,
+            seed: Optional[int] = None,
+            verbose: bool = True,
+            checkpoint_dir: str = "checkpoints",
+            run_id: Optional[str] = None
     ) -> Dict:
         """
         Run the benchmark with sampling.
-        
+
         Args:
             llm: LLM interface to use
             n_samples: Number of observation sets to sample
@@ -624,21 +657,21 @@ class BooleanBenchmarkRefined:
             seed: Random seed
             verbose: Print progress
             checkpoint_dir: Directory to save checkpoints
-        
+
         Returns:
             Dictionary with complete benchmark results
         """
         # Create checkpoint directory
         checkpoint_path = Path(checkpoint_dir)
         checkpoint_path.mkdir(parents=True, exist_ok=True)
-        
+
         # Generate run ID and safe filename
         if not run_id:
             run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         # Sanitize LLM name for filename
         safe_llm_name = llm.get_name().replace('/', '_').replace('(', '_').replace(')', '_').replace(' ', '_')
         checkpoint_file = checkpoint_path / f"checkpoint_{safe_llm_name}_{run_id}.json"
-        
+
         print(f"\nRunning refined Boolean benchmark")
         print(f"LLM: {llm.get_name()}")
         print(f"Sampling {n_samples} observation sets")
@@ -648,26 +681,26 @@ class BooleanBenchmarkRefined:
             print(f"Queries per sample: {query_multiplier}x number of ground truths (adaptive)")
         print(f"Checkpoint file: {checkpoint_file}")
         print("-" * 50)
-        
+
         # Sample observation sets
         sampled_sets = self.sample_observation_sets(n_samples, seed)
-        
+
         # Initialize results tracking
         all_results = []
         valid_rates = []
         novelty_rates = []
         recovery_rates = []
-        
+
         # Initialize token and cost tracking
         total_prompt_tokens = 0
         total_completion_tokens = 0
         total_tokens = 0
         total_cost = 0.0
-        
+
         # Initialize error tracking
         all_errors = []
         total_error_counts = {}
-        
+
         # Load existing checkpoint if it exists
         start_idx = 0
         if checkpoint_file.exists():
@@ -691,17 +724,17 @@ class BooleanBenchmarkRefined:
                     total_tokens = checkpoint_data['total_token_usage'].get('total_tokens', 0)
                 if 'total_cost' in checkpoint_data:
                     total_cost = checkpoint_data['total_cost']
-        
+
         # Process each sampled observation set
         for idx in range(start_idx, len(sampled_sets)):
             obs_set = sampled_sets[idx]
-            
+
             if verbose:
                 print(f"\nSample {idx + 1}/{n_samples}")
                 print(f"  Observation set ID: {obs_set['observation_set_id']}")
                 print(f"  Number of observations: {obs_set['n_observations']}")
                 print(f"  Number of ground truths: {obs_set['n_compatible_expressions']}")
-            
+
             try:
                 # Determine number of queries for this observation set
                 if n_queries_per_sample is not None:
@@ -713,17 +746,17 @@ class BooleanBenchmarkRefined:
                     n_queries = max(1, int(n_gt * query_multiplier))
                     if verbose:
                         print(f"  Using {n_queries} queries ({query_multiplier}x {n_gt} ground truths)")
-                
+
                 # Evaluate on this observation set
                 result = self.evaluate_single_observation_set(
                     llm, obs_set, n_queries, verbose=False
                 )
-                
+
                 all_results.append(result)
                 valid_rates.append(result['valid_rate'])
                 novelty_rates.append(result['novelty_rate'])
                 recovery_rates.append(result['recovery_rate'])
-                
+
                 # Aggregate token usage and costs
                 if 'token_usage' in result:
                     total_prompt_tokens += result['token_usage']['prompt_tokens']
@@ -731,7 +764,7 @@ class BooleanBenchmarkRefined:
                     total_tokens += result['token_usage']['total_tokens']
                 if 'cost' in result:
                     total_cost += result['cost']
-                
+
                 # Aggregate errors
                 if 'errors' in result and result['errors']:
                     all_errors.extend(result['errors'])
@@ -739,12 +772,12 @@ class BooleanBenchmarkRefined:
                     if 'error_summary' in result:
                         for error_type, count in result['error_summary']['error_types'].items():
                             total_error_counts[error_type] = total_error_counts.get(error_type, 0) + count
-                
+
                 if verbose:
                     print(f"  Valid rate: {result['valid_rate']:.2%}")
                     print(f"  Novelty rate: {result['novelty_rate']:.2%}")
                     print(f"  Recovery rate: {result['recovery_rate']:.2%}")
-                
+
                 # Save checkpoint after each sample
                 checkpoint_data = {
                     'run_id': run_id,
@@ -764,7 +797,7 @@ class BooleanBenchmarkRefined:
                     'total_errors': len(all_errors),
                     'error_types': total_error_counts
                 }
-                
+
                 with open(checkpoint_file, 'w') as f:
                     json.dump(checkpoint_data, f, indent=2)
 
@@ -772,7 +805,7 @@ class BooleanBenchmarkRefined:
                 print(f"  Error processing sample {idx + 1}: {str(e)}")
                 traceback.print_exc()
                 continue
-        
+
         # Calculate statistics
         def calculate_stats(rates):
             if not rates:
@@ -784,14 +817,14 @@ class BooleanBenchmarkRefined:
                 'min': np.min(rates),
                 'max': np.max(rates)
             }
-        
+
         # Calculate p-values (one-sample t-test against null hypothesis of 0)
         def calculate_p_value(rates):
             if not rates or len(rates) < 2:
                 return None
             t_stat, p_val = stats.ttest_1samp(rates, 0)
             return p_val
-        
+
         # Compile final results
         final_results = {
             'run_id': run_id,
@@ -821,12 +854,14 @@ class BooleanBenchmarkRefined:
                 'completion_tokens': total_completion_tokens,
                 'total_tokens': total_tokens,
                 'avg_tokens_per_sample': total_tokens / len(all_results) if all_results else 0,
-                'avg_tokens_per_query': total_tokens / (len(all_results) * (n_queries_per_sample or 1)) if all_results else 0
+                'avg_tokens_per_query': total_tokens / (
+                            len(all_results) * (n_queries_per_sample or 1)) if all_results else 0
             },
             'cost': {
                 'total_cost': total_cost,
                 'avg_cost_per_sample': total_cost / len(all_results) if all_results else 0,
-                'avg_cost_per_query': total_cost / (len(all_results) * (n_queries_per_sample or 1)) if all_results else 0
+                'avg_cost_per_query': total_cost / (
+                            len(all_results) * (n_queries_per_sample or 1)) if all_results else 0
             },
             'error_summary': {
                 'total_errors': len(all_errors),
@@ -835,15 +870,15 @@ class BooleanBenchmarkRefined:
             },
             'per_sample_results': all_results
         }
-        
+
         # Print summary
         print("\n" + "=" * 50)
         print("BENCHMARK RESULTS SUMMARY")
         print("=" * 50)
         print(f"Samples evaluated: {len(all_results)}/{n_samples}")
-        
-        for metric_name, metric_key in [('Valid Rate', 'valid_rate'), 
-                                        ('Novelty Rate', 'novelty_rate'), 
+
+        for metric_name, metric_key in [('Valid Rate', 'valid_rate'),
+                                        ('Novelty Rate', 'novelty_rate'),
                                         ('Recovery Rate', 'recovery_rate')]:
             stats_dict = final_results['statistics'][metric_key]
             print(f"\n{metric_name}:")
@@ -852,7 +887,7 @@ class BooleanBenchmarkRefined:
             print(f"  Range: [{stats_dict['min']:.3f}, {stats_dict['max']:.3f}]")
             if stats_dict['p_value'] is not None:
                 print(f"  p-value: {stats_dict['p_value']:.4f}")
-        
+
         # Print token usage and cost summary
         print(f"\nToken Usage:")
         print(f"  Total tokens: {final_results['token_usage']['total_tokens']:,}")
@@ -860,12 +895,12 @@ class BooleanBenchmarkRefined:
         print(f"  Completion tokens: {final_results['token_usage']['completion_tokens']:,}")
         print(f"  Avg tokens/sample: {final_results['token_usage']['avg_tokens_per_sample']:.1f}")
         print(f"  Avg tokens/query: {final_results['token_usage']['avg_tokens_per_query']:.1f}")
-        
+
         print(f"\nCost:")
         print(f"  Total cost: ${final_results['cost']['total_cost']:.4f}")
         print(f"  Avg cost/sample: ${final_results['cost']['avg_cost_per_sample']:.4f}")
         print(f"  Avg cost/query: ${final_results['cost']['avg_cost_per_query']:.6f}")
-        
+
         # Print error summary if there were errors
         if final_results['error_summary']['total_errors'] > 0:
             print(f"\nErrors:")
@@ -875,48 +910,60 @@ class BooleanBenchmarkRefined:
                 print(f"  Error types:")
                 for error_type, count in final_results['error_summary']['error_types'].items():
                     print(f"    - {error_type}: {count}")
-        
+
         print("=" * 50)
-        
+
         return final_results
 
 
 def setup_llm(llm_type: str, **kwargs) -> LLMInterface:
     """Set up the LLM interface based on type."""
-    
+
     if llm_type == "openai":
         api_key = kwargs.get('api_key') or os.environ.get('OPENAI_API_KEY')
         if not api_key:
             raise ValueError("OpenAI API key required")
-        
+
         return OpenAILLM(
             model=kwargs.get('model', 'gpt-4'),
             api_key=api_key,
             temperature=kwargs.get('temperature', 0.7)
         )
-    
+
     elif llm_type == "anthropic":
         api_key = kwargs.get('api_key') or os.environ.get('ANTHROPIC_API_KEY')
         if not api_key:
             raise ValueError("Anthropic API key required")
-        
+
         return AnthropicLLM(
             model=kwargs.get('model', 'claude-3-opus-20240229'),
             api_key=api_key,
             temperature=kwargs.get('temperature', 0.7)
         )
-    
+
     elif llm_type == "openrouter":
         api_key = kwargs.get('api_key') or os.environ.get('OPENROUTER_API_KEY')
         if not api_key:
             raise ValueError("OpenRouter API key required")
-        
+
         return OpenRouterLLM(
             model=kwargs.get('model', 'anthropic/claude-3.5-sonnet'),
             api_key=api_key,
             temperature=kwargs.get('temperature', 0.7)
         )
-    
+
+    elif llm_type == "qwen_local":
+        model_path = kwargs.get('model_path') or kwargs.get('model')
+        if not model_path:
+            raise ValueError("Qwen local model path is required")
+
+        return QwenLocalLLM(
+            model_path=model_path,
+            temperature=kwargs.get('temperature', 0.7),
+            max_tokens=kwargs.get('max_tokens', 512),
+            device=kwargs.get('device', 'auto')
+        )
+
     else:
         raise ValueError(f"Unknown LLM type: {llm_type}")
 
@@ -934,25 +981,28 @@ def main():
     parser.add_argument("--dataset", required=True, help="Path to complete Boolean dataset JSON file")
     parser.add_argument("--config", required=True, help="Path to configuration file")
     parser.add_argument("--n-samples", type=int, default=10, help="Number of observation sets to sample")
-    parser.add_argument("--n-queries", type=int, default=None, help="Fixed number of queries per observation set (if not set, uses adaptive)")
-    parser.add_argument("--query-multiplier", type=float, default=1.0, help="Multiplier for adaptive queries (n_queries = n_gt * multiplier)")
+    parser.add_argument("--n-queries", type=int, default=None,
+                        help="Fixed number of queries per observation set (if not set, uses adaptive)")
+    parser.add_argument("--query-multiplier", type=float, default=1.0,
+                        help="Multiplier for adaptive queries (n_queries = n_gt * multiplier)")
     parser.add_argument("--seed", type=int, default=None, help="Random seed for sampling")
-    
+
     args = parser.parse_args()
-    
+
     # Load configuration
     config = load_config(args.config)
     llm_type = config.get('llm', {}).get('type', 'openrouter')
-    
+
     model = config.get('llm', {}).get('models', {}).get(llm_type)
     if not model:
         default_models = {
             'openrouter': 'openai/gpt-3.5-turbo',
-            'openai': 'gpt-4',
-            'anthropic': 'claude-3-opus-20240229'
+            'openai': 'gpt-4o',
+            'anthropic': 'claude-3-opus-20240229',
+            'qwen_local': '/opt/data/private/HypoSpace-40DA/models/qwen/Qwen3-8B'
         }
         model = default_models.get(llm_type)
-    
+
     api_key = config.get('llm', {}).get('api_keys', {}).get(llm_type)
     if not api_key:
         env_vars = {
@@ -962,7 +1012,7 @@ def main():
         }
         if llm_type in env_vars:
             api_key = os.environ.get(env_vars[llm_type])
-    
+
     temperature = config.get('llm', {}).get('temperature', 0.7)
     checkpoint_dir = config.get('benchmark', {}).get('checkpoint', 'checkpoints')
     run_id = config.get('benchmark', {}).get('run_id', None)
@@ -971,21 +1021,20 @@ def main():
     if not Path(args.dataset).exists():
         print(f"Error: Dataset file not found: {args.dataset}")
         sys.exit(1)
-    dataset_name = Path(args.dataset).stem
-    model_name = Path(model).stem if model else llm_type
-    output_pattern = config.get('benchmark', {}).get('output_pattern', 'results_{dataset_name}_{model}.json')
-    output = output_pattern.format(dataset_name=dataset_name, model=model_name, llm_type=llm_type)
 
-    # Generate output filename if not specified
-    if output is None:
-        dataset_name = Path(args.dataset).stem
+    # Generate output filename
+    dataset_name = Path(args.dataset).stem
+    # For local models, use a more descriptive name
+    if llm_type == "qwen_local" and model:
+        model_name = Path(model).stem
+    else:
         model_name = Path(model).stem if model else llm_type
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output = f"results/{dataset_name}_{model_name}_{timestamp}.json"
+    output_pattern = config.get('benchmark', {}).get('output_pattern', 'results/{dataset_name}_{model}.json')
+    output = output_pattern.format(dataset_name=dataset_name, model=model_name)
 
     # Initialize benchmark
-    benchmark = BooleanBenchmarkRefined(args.dataset)
-     
+    benchmark = BooleanBenchmarkRefined(args.dataset, config)
+
     # Print configuration
     print("\n" + "=" * 60)
     print("REFINED BOOLEAN BENCHMARK CONFIGURATION")
@@ -999,15 +1048,21 @@ def main():
     print(f"Seed: {args.seed}")
     print(f"Output: {output}")
     print("=" * 60)
-    
+
     # Set up LLM
-    llm = setup_llm(
-        llm_type,
-        model=model,
-        api_key=api_key,
-        temperature=temperature
-    )
-    
+    llm_kwargs = {
+        'model': model,
+        'api_key': api_key,
+        'temperature': temperature
+    }
+
+    # Add max_tokens and device for local models
+    if llm_type == "qwen_local":
+        llm_kwargs['max_tokens'] = config.get('llm', {}).get('max_tokens', 512)
+        llm_kwargs['device'] = config.get('llm', {}).get('device', 'auto')
+
+    llm = setup_llm(llm_type, **llm_kwargs)
+
     # Run benchmark
     results = benchmark.run_benchmark(
         llm=llm,
@@ -1019,14 +1074,14 @@ def main():
         checkpoint_dir=checkpoint_dir,
         run_id=run_id
     )
-    
+
     # Save final results
     output_path = Path(output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output, 'w') as f:
         json.dump(results, f, indent=2)
-    
+
     print(f"\nFinal results saved to: {output}")
 
 

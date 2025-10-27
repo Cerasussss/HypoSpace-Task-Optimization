@@ -49,22 +49,23 @@ def _extract_usage(resp):
     total_tokens = getattr(u, "total_tokens", input_tokens + output_tokens)
     return input_tokens, output_tokens, total_tokens
 
+
 class LLMInterface(ABC):
     """Abstract interface for LLM interaction."""
-    
+
     @abstractmethod
     def query(self, prompt: str) -> str:
         """
         Query the LLM with a prompt and return response.
-        
+
         Args:
             prompt: The prompt to send to the LLM
-        
+
         Returns:
             The LLM's response as a string
         """
         pass
-    
+
     def query_with_usage(self, prompt: str) -> Dict[str, Any]:
         """Query the LLM and return response with usage stats."""
         # Default implementation for backward compatibility
@@ -73,17 +74,17 @@ class LLMInterface(ABC):
             'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0},
             'cost': 0.0
         }
-    
+
     @abstractmethod
     def get_name(self) -> str:
         """Get the name/identifier of the LLM."""
         pass
-    
+
     def get_model_pricing(self) -> Dict[str, float]:
         """Get pricing per 1M tokens for this model."""
         # Default pricing (can be overridden by subclasses)
         return {'input': 0.0, 'output': 0.0}
-    
+
     def reset(self):
         """Reset any internal state (optional)."""
         pass
@@ -92,21 +93,21 @@ class LLMInterface(ABC):
 class OpenRouterLLM(LLMInterface):
     """
     OpenRouter API interface for various LLM models.
-    
+
     OpenRouter provides access to multiple models through a single API.
     """
-    
+
     def __init__(
-        self,
-        model: str = "anthropic/claude-3.5-sonnet",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 40960,
-        base_url: str = "https://openrouter.ai/api/v1"
+            self,
+            model: str = "anthropic/claude-3.5-sonnet",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 40960,
+            base_url: str = "https://openrouter.ai/api/v1"
     ):
         """
         Initialize OpenRouter LLM interface.
-        
+
         Args:
             model: Model identifier (e.g., "anthropic/claude-3.5-sonnet", "openai/gpt-4")
             api_key: OpenRouter API key
@@ -116,7 +117,7 @@ class OpenRouterLLM(LLMInterface):
         """
         if not api_key:
             raise ValueError("OpenRouter API key is required")
-        
+
         self.model = model
         self.api_key = api_key
         self.temperature = temperature
@@ -128,12 +129,12 @@ class OpenRouterLLM(LLMInterface):
             # "HTTP-Referer":"http://localhost:3000",  # Required by OpenRouter
             # "X-Title": "Cre ativity Benchmark"  # Optional, for OpenRouter dashboard
         }
-    
+
     def query(self, prompt: str) -> str:
         """Query OpenRouter API."""
         result = self.query_with_usage(prompt)
         return result['response']
-    
+
     def query_with_usage(self, prompt: str) -> Dict[str, Any]:
         """Query OpenRouter API with usage tracking."""
         try:
@@ -147,7 +148,7 @@ class OpenRouterLLM(LLMInterface):
                 "temperature": self.temperature,
                 "max_tokens": self.max_tokens
             }
-            
+
             response = requests.post(url, headers=self.headers, json=payload)
             response.raise_for_status()
             # print('result0',response)
@@ -161,18 +162,18 @@ class OpenRouterLLM(LLMInterface):
                 'completion_tokens': usage.get('completion_tokens', 0),
                 'total_tokens': usage.get('total_tokens', 0)
             }
-            
+
             # Calculate cost based on model pricing
             pricing = self.get_model_pricing()
-            cost = (usage_data['prompt_tokens'] * pricing['input'] + 
-                   usage_data['completion_tokens'] * pricing['output']) / 1_000_000
-            
+            cost = (usage_data['prompt_tokens'] * pricing['input'] +
+                    usage_data['completion_tokens'] * pricing['output']) / 1_000_000
+
             return {
                 'response': result['choices'][0]['message']['content'],
                 'usage': usage_data,
                 'cost': cost
             }
-            
+
         except requests.exceptions.RequestException as e:
             return {
                 'response': f"Error querying OpenRouter: {str(e)}",
@@ -185,11 +186,11 @@ class OpenRouterLLM(LLMInterface):
                 'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0},
                 'cost': 0.0
             }
-    
+
     def get_name(self) -> str:
         """Get the model name."""
         return f"OpenRouter({self.model})"
-    
+
     def get_model_pricing(self) -> Dict[str, float]:
         """Get pricing per 1M tokens for common models."""
         # Pricing in dollars per 1M tokens
@@ -207,20 +208,20 @@ class OpenRouterLLM(LLMInterface):
 class OpenAILLM(LLMInterface):
     """
     OpenAI API interface for GPT models.
-    
+
     Requires openai package and API key.
     """
-    
+
     def __init__(
-        self, 
-        model: str = "gpt-4",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 40960
+            self,
+            model: str = "gpt-4",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 40960
     ):
         """
         Initialize OpenAI LLM interface.
-        
+
         Args:
             model: OpenAI model to use
             api_key: OpenAI API key (uses environment variable if not provided)
@@ -231,24 +232,24 @@ class OpenAILLM(LLMInterface):
             import openai
         except ImportError:
             raise ImportError("Please install openai package: pip install openai")
-        
+
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
-        
+
         if not api_key:
             import os
             api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
                 raise ValueError("OpenAI API key must be provided or set as OPENAI_API_KEY environment variable")
-        
+
         self.client = openai.OpenAI(api_key=api_key)
-    
+
     def query(self, prompt: str) -> str:
         """Query OpenAI API."""
         result = self.query_with_usage(prompt)
         return result['response']
-    
+
     def query_with_usage(self, prompt: str) -> Dict[str, Any]:
         try:
             # print(self.max_tokens)
@@ -285,11 +286,11 @@ class OpenAILLM(LLMInterface):
                 "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
                 "cost": 0.0,
             }
-    
+
     def get_name(self) -> str:
         """Get the model name."""
         return f"OpenAI({self.model})"
-    
+
     def get_model_pricing(self) -> Dict[str, float]:
         """Get pricing per 1M tokens for OpenAI models."""
         # Pricing in dollars per 1M tokens
@@ -304,20 +305,20 @@ class OpenAILLM(LLMInterface):
 class AnthropicLLM(LLMInterface):
     """
     Anthropic Claude API interface.
-    
+
     Requires anthropic package and API key.
     """
-    
+
     def __init__(
-        self,
-        model: str = "claude-3-opus-20240229",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 500
+            self,
+            model: str = "claude-3-opus-20240229",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 500
     ):
         """
         Initialize Anthropic LLM interface.
-        
+
         Args:
             model: Anthropic model to use
             api_key: Anthropic API key (uses environment variable if not provided)
@@ -328,18 +329,18 @@ class AnthropicLLM(LLMInterface):
             import anthropic
         except ImportError:
             raise ImportError("Please install anthropic package: pip install anthropic")
-        
+
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
-        
+
         self.client = anthropic.Anthropic(api_key=api_key)
-    
+
     def query(self, prompt: str) -> str:
         """Query Anthropic API."""
         result = self.query_with_usage(prompt)
         return result['response']
-    
+
     def query_with_usage(self, prompt: str) -> Dict[str, Any]:
         """Query Anthropic API with usage tracking."""
         try:
@@ -351,19 +352,20 @@ class AnthropicLLM(LLMInterface):
                     {"role": "user", "content": prompt}
                 ]
             )
-            
+
             # Extract usage information
             usage = {
                 'prompt_tokens': response.usage.input_tokens if hasattr(response, 'usage') else 0,
                 'completion_tokens': response.usage.output_tokens if hasattr(response, 'usage') else 0,
-                'total_tokens': (response.usage.input_tokens + response.usage.output_tokens) if hasattr(response, 'usage') else 0
+                'total_tokens': (response.usage.input_tokens + response.usage.output_tokens) if hasattr(response,
+                                                                                                        'usage') else 0
             }
-            
+
             # Calculate cost
             pricing = self.get_model_pricing()
-            cost = (usage['prompt_tokens'] * pricing['input'] + 
-                   usage['completion_tokens'] * pricing['output']) / 1_000_000
-            
+            cost = (usage['prompt_tokens'] * pricing['input'] +
+                    usage['completion_tokens'] * pricing['output']) / 1_000_000
+
             return {
                 'response': response.content[0].text,
                 'usage': usage,
@@ -375,11 +377,11 @@ class AnthropicLLM(LLMInterface):
                 'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0},
                 'cost': 0.0
             }
-    
+
     def get_name(self) -> str:
         """Get the model name."""
         return f"Anthropic({self.model})"
-    
+
     def get_model_pricing(self) -> Dict[str, float]:
         """Get pricing per 1M tokens for Anthropic models."""
         # Pricing in dollars per 1M tokens
@@ -392,19 +394,134 @@ class AnthropicLLM(LLMInterface):
         return pricing_map.get(self.model, {'input': 3.0, 'output': 15.0})
 
 
+# Local LLM
+class QwenLocalLLM(LLMInterface):
+    """
+    Local Qwen model interface using Hugging Face Transformers.
+
+    Requires transformers package and local Qwen model.
+    """
+
+    def __init__(
+            self,
+            model_path: str = "Qwen/Qwen2-7B-Instruct",
+            temperature: float = 0.7,
+            max_tokens: int = 512,
+            device: str = "auto"
+    ):
+        """
+        Initialize Local Qwen LLM interface.
+
+        Args:
+            model_path: Path to the local Qwen model or Hugging Face model identifier
+            temperature: Sampling temperature
+            max_tokens: Maximum tokens in response
+            device: Device to run the model on ("cpu", "cuda", "auto", etc.)
+        """
+        try:
+            from transformers import AutoModelForCausalLM, AutoTokenizer
+        except ImportError:
+            raise ImportError("Please install transformers package: pip install transformers")
+
+        self.model_path = model_path
+        self.temperature = temperature
+        self.max_tokens = max_tokens
+        self.device = device
+
+        print(f"Loading Qwen model from {model_path}...")
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_path,
+            torch_dtype="auto",
+            device_map=device
+        )
+        print("Model loaded successfully.")
+
+    def query(self, prompt: str) -> str:
+        """Query local Qwen model."""
+        result = self.query_with_usage(prompt)
+        return result['response']
+
+    def query_with_usage(self, prompt: str) -> Dict[str, Any]:
+        """Query local Qwen model with usage tracking."""
+        try:
+            # Prepare input for Qwen model
+            messages = [
+                {"role": "system", "content": "You are an expert in causal inference and graph theory."},
+                {"role": "user", "content": prompt}
+            ]
+
+            # Apply chat template
+            text = self.tokenizer.apply_chat_template(
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False
+            )
+
+            # Tokenize input
+            model_inputs = self.tokenizer([text], return_tensors="pt").to(self.model.device)
+
+            # Generate response
+            generated_ids = self.model.generate(
+                **model_inputs,
+                max_new_tokens=self.max_tokens,
+                temperature=self.temperature,
+                do_sample=True
+            )
+
+            # Extract generated text
+            output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist()
+            response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
+
+            # Calculate token usage (approximate)
+            input_tokens = len(model_inputs.input_ids[0])
+            output_tokens = len(output_ids)
+            total_tokens = input_tokens + output_tokens
+
+            # Print AI response for debugging
+            print(f"\n[Qwen Local Model Response]:")
+            print(f"Model: {self.model_path}")
+            print(f"Response: {response}")
+            print("-" * 50)
+
+            return {
+                'response': response,
+                'usage': {
+                    'prompt_tokens': input_tokens,
+                    'completion_tokens': output_tokens,
+                    'total_tokens': total_tokens
+                },
+                'cost': 0.0  # Local model has no cost
+            }
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return {
+                'response': f"Error querying local Qwen model: {str(e)}",
+                'usage': {'prompt_tokens': 0, 'completion_tokens': 0, 'total_tokens': 0},
+                'cost': 0.0
+            }
+
+    def get_name(self) -> str:
+        """Get the model name."""
+        return f"QwenLocal({self.model_path})"
+
+
 class ResponseParser:
     """Parser for extracting causal graphs from LLM responses."""
-    
+
     @staticmethod
     def parse_response(response: str) -> Optional[CausalGraph]:
         """
         Parse LLM response to extract causal graph.
-        
+
         Handles various response formats and edge notations.
-        
+
         Args:
             response: The LLM's response text
-        
+
         Returns:
             CausalGraph if successfully parsed, None otherwise
         """
@@ -413,32 +530,32 @@ class ResponseParser:
             nodes = ResponseParser._extract_nodes(response)
             if not nodes:
                 return None
-            
+
             # Extract edges
             edges = ResponseParser._extract_edges(response)
             if not edges:
                 # Try alternative extraction methods
                 edges = ResponseParser._extract_edges_alternative(response)
-            
+
             if nodes and edges:
                 # Validate that edge nodes are in the node list
                 edge_nodes = set()
                 for src, dst in edges:
                     edge_nodes.add(src)
                     edge_nodes.add(dst)
-                
+
                 # Add any missing nodes
                 for node in edge_nodes:
                     if node not in nodes:
                         nodes.append(node)
-                
+
                 return CausalGraph(nodes=sorted(nodes), edges=edges)
-            
+
         except Exception as e:
             print(f"Error parsing response: {e}")
-        
+
         return None
-    
+
     @staticmethod
     def _extract_nodes(response: str) -> Optional[List[str]]:
         """Extract node list from response."""
@@ -450,7 +567,7 @@ class ResponseParser:
             r'variables?\s*\[([^\]]+)\]',
             r'variables?\s+(?:are\s+)?(\w+(?:,\s*\w+)*)'
         ]
-        
+
         for pattern in patterns:
             match = re.search(pattern, response, re.IGNORECASE)
             if match:
@@ -458,14 +575,14 @@ class ResponseParser:
                 # Clean and split
                 nodes = [n.strip().strip("'\"") for n in nodes_str.split(',')]
                 return [n for n in nodes if n]  # Filter empty strings
-        
+
         return None
-    
+
     @staticmethod
     def _extract_edges(response: str) -> List[tuple]:
         """Extract edges from response."""
         edges = []
-        
+
         # Edge patterns to look for
         edge_patterns = [
             r'(\w+)\s*->\s*(\w+)',
@@ -474,14 +591,14 @@ class ResponseParser:
             r'(\w+)\s+affects?\s+(\w+)',
             r'(\w+)\s+influences?\s+(\w+)'
         ]
-        
+
         for pattern in edge_patterns:
             matches = re.findall(pattern, response, re.IGNORECASE)
             for match in matches:
                 src, dst = match[0].strip(), match[1].strip()
                 if src and dst and src != dst:  # Avoid self-loops
                     edges.append((src, dst))
-        
+
         # Remove duplicates while preserving order
         seen = set()
         unique_edges = []
@@ -489,19 +606,19 @@ class ResponseParser:
             if edge not in seen:
                 seen.add(edge)
                 unique_edges.append(edge)
-        
+
         return unique_edges
-    
+
     @staticmethod
     def _extract_edges_alternative(response: str) -> List[tuple]:
         """Alternative method for extracting edges."""
         edges = []
-        
+
         # Look for edges in format "edges: A->B, C->D, ..."
         edges_match = re.search(r'edges?:?\s*([^.]+)', response, re.IGNORECASE)
         if edges_match:
             edges_str = edges_match.group(1)
-            
+
             # Split by comma and parse each edge
             edge_parts = edges_str.split(',')
             for part in edge_parts:
@@ -509,5 +626,5 @@ class ResponseParser:
                 edge_match = re.search(r'(\w+)\s*(?:->|→)\s*(\w+)', part)
                 if edge_match:
                     edges.append((edge_match.group(1), edge_match.group(2)))
-        
+
         return edges
