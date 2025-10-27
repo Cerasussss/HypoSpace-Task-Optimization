@@ -15,9 +15,13 @@ from collections import Counter
 from scipy import stats
 import traceback
 
-from modules.models import CausalGraph
-from modules.llm_interface import LLMInterface, OpenRouterLLM, OpenAILLM, AnthropicLLM, QwenLocalLLM
-from generate_causal_dataset import PerturbationObservation, CausalDatasetGenerator
+# Add project root to path
+sys.path.insert(0, '/opt/data/private/HypoSpace-40DA')
+
+# Use local modules from causal task
+from causal.modules.models import CausalGraph
+from causal.modules.llm_interface import LLMInterface, OpenRouterLLM, OpenAILLM, AnthropicLLM, QwenLocalLLM
+from causal.generate_causal_dataset import PerturbationObservation, CausalDatasetGenerator
 
 
 class CausalBenchmarkEnhanced:
@@ -41,18 +45,18 @@ class CausalBenchmarkEnhanced:
         self.filtered_observation_sets = []
         self.excluded_observation_sets = []  # For potential backfill
 
-        # Initialize RAG module if enabled in config and examples file exists
+        # Initialize Universal RAG module if enabled in config and examples file exists
         self.rag_module = None
         if config and config.get('benchmark', {}).get('diversity', {}).get('enable_rag', False):
             examples_file = config.get('benchmark', {}).get('diversity', {}).get('examples_file',
                                                                                  'few_shot_examples.json')
             if Path(examples_file).exists():
                 try:
-                    from modules.rag import CausalRAG
-                    self.rag_module = CausalRAG(examples_file)
-                    print(f"RAG module initialized with {examples_file}")
+                    from shared_modules.universal_rag import UniversalRAG
+                    self.rag_module = UniversalRAG(examples_file)
+                    print(f"Universal RAG module initialized with {examples_file}")
                 except ImportError:
-                    print("Warning: Could not import RAG module. Proceeding without RAG.")
+                    print("Warning: Could not import Universal RAG module. Proceeding without RAG.")
             else:
                 print(f"Warning: Examples file {examples_file} not found. Proceeding without RAG.")
 
@@ -410,15 +414,15 @@ class CausalBenchmarkEnhanced:
         errors = []
         error_counts = {}
 
-        # Retrieve similar examples using RAG if available
+        # Retrieve similar examples using Universal RAG if available
         rag_context = None
         if self.rag_module:
             try:
                 # Use diverse retrieval to get more varied examples
                 similar_examples = self.rag_module.retrieve_diverse_examples(observations, top_k=3)
-                rag_context = self.rag_module.format_examples_for_prompt(similar_examples)
+                rag_context = self.rag_module.format_examples_for_prompt(similar_examples, task_type="causal")
             except Exception as e:
-                print(f"Warning: Error using RAG module: {e}")
+                print(f"Warning: Error using Universal RAG module: {e}")
 
         for i in range(n_queries):
             prompt = self.create_prompt(observations, all_hypotheses, rag_context)
@@ -434,6 +438,12 @@ class CausalBenchmarkEnhanced:
                         result = llm.query_with_usage(prompt)
                         response = result['response']
 
+                        # Print AI response for debugging
+                        print(f"\n[AI Response - Query {i + 1}/{n_queries}]:")
+                        print(f"Prompt: {prompt[:200]}...")  # Print first 200 chars of prompt
+                        print(f"Response: {response}")
+                        print("-" * 50)
+
                         # Track usage
                         usage = result.get('usage', {})
                         total_prompt_tokens += usage.get('prompt_tokens', 0)
@@ -442,6 +452,11 @@ class CausalBenchmarkEnhanced:
                         total_cost += result.get('cost', 0.0)
                     else:
                         response = llm.query(prompt)
+                        # Print AI response for debugging
+                        # print(f"\n[AI Response - Query {i+1}/{n_queries}]:")
+                        # print(f"Prompt: {prompt[:200]}...")  # Print first 200 chars of prompt
+                        # print(f"Response: {response}")
+                        # print("-" * 50)
 
                     # Check if response is an error
                     if response and response.startswith("Error querying"):
