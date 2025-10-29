@@ -49,6 +49,7 @@ def _extract_usage(resp):
     total_tokens = getattr(u, "total_tokens", input_tokens + output_tokens)
     return input_tokens, output_tokens, total_tokens
 
+
 class LLMInterface(ABC):
     """Abstract interface for LLM interaction."""
 
@@ -97,12 +98,12 @@ class OpenRouterLLM(LLMInterface):
     """
 
     def __init__(
-        self,
-        model: str = "anthropic/claude-3.5-sonnet",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 40960,
-        base_url: str = "https://openrouter.ai/api/v1"
+            self,
+            model: str = "anthropic/claude-3.5-sonnet",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 40960,
+            base_url: str = "https://openrouter.ai/api/v1"
     ):
         """
         Initialize OpenRouter LLM interface.
@@ -154,6 +155,13 @@ class OpenRouterLLM(LLMInterface):
             result = response.json()
             # print('result1',result['choices'][0]['message']['content'])
             # print('result2',result)
+
+            # Print AI response for debugging
+            # print(f"\n[OpenRouter API Response]:")
+            # print(f"Model: {self.model}")
+            # print(f"Response: {result['choices'][0]['message']['content']}")
+            # print("-" * 50)
+
             # Extract usage information
             usage = result.get('usage', {})
             usage_data = {
@@ -165,7 +173,7 @@ class OpenRouterLLM(LLMInterface):
             # Calculate cost based on model pricing
             pricing = self.get_model_pricing()
             cost = (usage_data['prompt_tokens'] * pricing['input'] +
-                   usage_data['completion_tokens'] * pricing['output']) / 1_000_000
+                    usage_data['completion_tokens'] * pricing['output']) / 1_000_000
 
             return {
                 'response': result['choices'][0]['message']['content'],
@@ -212,11 +220,11 @@ class OpenAILLM(LLMInterface):
     """
 
     def __init__(
-        self,
-        model: str = "gpt-4",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 40960
+            self,
+            model: str = "gpt-4",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 40960
     ):
         """
         Initialize OpenAI LLM interface.
@@ -268,6 +276,12 @@ class OpenAILLM(LLMInterface):
             pricing = self.get_model_pricing()
             cost = (in_tok * pricing['input'] + out_tok * pricing['output']) / 1_000_000
 
+            # Print AI response for debugging
+            print(f"\n[OpenAI API Response]:")
+            print(f"Model: {self.model}")
+            print(f"Response: {text}")
+            print("-" * 50)
+
             # print(text)
             return {
                 "response": text,
@@ -309,11 +323,11 @@ class AnthropicLLM(LLMInterface):
     """
 
     def __init__(
-        self,
-        model: str = "claude-3-opus-20240229",
-        api_key: Optional[str] = None,
-        temperature: float = 0.7,
-        max_tokens: int = 500
+            self,
+            model: str = "claude-3-opus-20240229",
+            api_key: Optional[str] = None,
+            temperature: float = 0.7,
+            max_tokens: int = 500
     ):
         """
         Initialize Anthropic LLM interface.
@@ -356,13 +370,20 @@ class AnthropicLLM(LLMInterface):
             usage = {
                 'prompt_tokens': response.usage.input_tokens if hasattr(response, 'usage') else 0,
                 'completion_tokens': response.usage.output_tokens if hasattr(response, 'usage') else 0,
-                'total_tokens': (response.usage.input_tokens + response.usage.output_tokens) if hasattr(response, 'usage') else 0
+                'total_tokens': (response.usage.input_tokens + response.usage.output_tokens) if hasattr(response,
+                                                                                                        'usage') else 0
             }
 
             # Calculate cost
             pricing = self.get_model_pricing()
             cost = (usage['prompt_tokens'] * pricing['input'] +
-                   usage['completion_tokens'] * pricing['output']) / 1_000_000
+                    usage['completion_tokens'] * pricing['output']) / 1_000_000
+
+            # Print AI response for debugging
+            print(f"\n[Anthropic API Response]:")
+            print(f"Model: {self.model}")
+            print(f"Response: {response.content[0].text}")
+            print("-" * 50)
 
             return {
                 'response': response.content[0].text,
@@ -391,6 +412,7 @@ class AnthropicLLM(LLMInterface):
         }
         return pricing_map.get(self.model, {'input': 3.0, 'output': 15.0})
 
+
 # Local LLM
 class QwenLocalLLM(LLMInterface):
     """
@@ -400,11 +422,11 @@ class QwenLocalLLM(LLMInterface):
     """
 
     def __init__(
-        self,
-        model_path: str = "Qwen/Qwen2-7B-Instruct",
-        temperature: float = 0.7,
-        max_tokens: int = 512,
-        device: str = "auto"
+            self,
+            model_path: str = "Qwen/Qwen2-7B-Instruct",
+            temperature: float = 0.7,
+            max_tokens: int = 512,
+            device: str = "auto"
     ):
         """
         Initialize Local Qwen LLM interface.
@@ -475,6 +497,12 @@ class QwenLocalLLM(LLMInterface):
             input_tokens = len(model_inputs.input_ids[0])
             output_tokens = len(output_ids)
             total_tokens = input_tokens + output_tokens
+
+            # Print AI response for debugging
+            print(f"\n[Qwen Local Model Response]:")
+            print(f"Model: {self.model_path}")
+            print(f"Response: {response}")
+            print("-" * 50)
 
             return {
                 'response': response,

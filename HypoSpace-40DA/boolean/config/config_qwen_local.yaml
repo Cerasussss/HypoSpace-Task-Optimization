@@ -1,0 +1,14 @@
+llm:
+  type: qwen_local
+  models:
+    qwen_local: "/opt/data/private/HypoSpace-40DA/models/qwen/Qwen3-8B"  # 修改为你的本地模型路径
+  temperature: 0.7
+  max_tokens: 512
+
+benchmark:
+  checkpoint: "checkpoints"
+  verbose: true
+  output_pattern: "results/{dataset_name}_{model}.json"
+  diversity:
+    enable_rag: false
+    examples_file: "few_shot_examples.json"

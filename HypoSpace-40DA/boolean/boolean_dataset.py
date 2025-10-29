@@ -14,15 +14,18 @@ from sympy import evaluate
 COMMUTATIVE_OPS = {"AND", "OR", "XOR", "NAND", "NOR"}
 IDEMPOTENT_OPS = {"AND", "OR"}
 
+
 def _contains_constant(expr):
     """Return True if expr or any subexpr is True/False constant."""
     if expr in (sp.true, sp.false):
         return True
     return any(_contains_constant(arg) for arg in getattr(expr, "args", ()))
 
+
 def _is_leaf(expr: sp.Expr) -> bool:
     """Check if expression is a leaf node (variable or constant)."""
     return isinstance(expr, sp.Symbol) or (expr in (sp.true, sp.false)) or isinstance(expr, (int, bool))
+
 
 def _op_name(expr: sp.Expr) -> str:
     # detect NOR first (Not(Or(...)))
@@ -39,12 +42,13 @@ def _op_name(expr: sp.Expr) -> str:
     else:
         return "UNKNOWN"
 
+
 def mechanistic_key_sympy(
-    expr: sp.Expr,
-    *,
-    apply_commutativity: bool = True,
-    apply_idempotence_and_or: bool = True,
-    flatten_associativity: bool = True
+        expr: sp.Expr,
+        *,
+        apply_commutativity: bool = True,
+        apply_idempotence_and_or: bool = True,
+        flatten_associativity: bool = True
 ) -> Tuple:
     """
     Canonicalize expr using biology-aware symmetries ONLY:
@@ -65,7 +69,6 @@ def mechanistic_key_sympy(
 
         if name == "NOT":
             return ("NOT", to_tuple(e.args[0]))
-        
 
         if name == "NOR":
             # e is Not( Or(a,b,...) )
@@ -100,16 +103,17 @@ def mechanistic_key_sympy(
                     uniq.append(k)
             kids = uniq
 
-
         return (name, tuple(kids))
 
     return to_tuple(expr)
 
+
 class BooleanExpression:
     """Represents a Boolean expression with its symbolic formula."""
+
     def __init__(self, formula: str, variables: List[str], operators: Set[str]):
         self.formula = formula
-        self.variables = sorted(variables)   # fixed to ['x','y'] in this script
+        self.variables = sorted(variables)  # fixed to ['x','y'] in this script
         self.operators = operators
         self.sympy_expr = self._parse_formula(formula)
         self.truth_table = self._compute_truth_table()
@@ -127,10 +131,10 @@ class BooleanExpression:
         formula = re.sub(r'\bNOR\s*\(([^)]*)\)', _nor_repl, formula, flags=re.IGNORECASE)
 
         parsed = (formula
-                .replace('AND', '&')
-                .replace('OR', '|')
-                .replace('NOT', '~')
-                .replace('XOR', '^'))
+                  .replace('AND', '&')
+                  .replace('OR', '|')
+                  .replace('NOT', '~')
+                  .replace('XOR', '^'))
         try:
             with evaluate(False):
                 expr = sp.sympify(parsed, locals=var_symbols, evaluate=False)
@@ -170,11 +174,11 @@ class BooleanExpression:
         return self.formula
 
     def mechanistic_key(
-        self,
-        *,
-        apply_commutativity: bool = True,
-        apply_idempotence_and_or: bool = True,
-        flatten_associativity: bool = True
+            self,
+            *,
+            apply_commutativity: bool = True,
+            apply_idempotence_and_or: bool = True,
+            flatten_associativity: bool = True
     ) -> Tuple:
         return mechanistic_key_sympy(
             self.sympy_expr,
@@ -191,8 +195,10 @@ class BooleanExpression:
     def __hash__(self) -> int:
         return hash(tuple(sorted(self.truth_table.items())))
 
+
 class BooleanObservation:
     """Represents a Boolean input-output observation."""
+
     def __init__(self, inputs: Dict[str, int], output: int):
         self.inputs = inputs
         self.output = output
@@ -211,6 +217,7 @@ class BooleanObservation:
     def __hash__(self) -> int:
         return hash(self.to_tuple())
 
+
 class BooleanDiscoveryGame:
     """Task for discovering Boolean functions from partial observations (x from mother, y from father)."""
 
@@ -224,10 +231,10 @@ class BooleanDiscoveryGame:
     # -------- Random expression (kept for completeness) --------
     @staticmethod
     def generate_random_expression(
-        variables: List[str],
-        operators: Set[str],
-        max_depth: int = 2,
-        rng: Optional[np.random.Generator] = None
+            variables: List[str],
+            operators: Set[str],
+            max_depth: int = 2,
+            rng: Optional[np.random.Generator] = None
     ) -> BooleanExpression:
         if rng is None:
             rng = np.random.default_rng()
@@ -258,10 +265,10 @@ class BooleanDiscoveryGame:
 
         sym = gen(0)
         formula_str = (str(sym)
-               .replace('&', ' AND ')
-               .replace('|', ' OR ')
-               .replace('~', 'NOT ')
-               .replace('^', ' XOR '))
+                       .replace('&', ' AND ')
+                       .replace('|', ' OR ')
+                       .replace('~', 'NOT ')
+                       .replace('^', ' XOR '))
         # NOR pretty print
         if isinstance(sym, sp.Not) and isinstance(sym.args[0], sp.Or):
             args_str = " , ".join(str(arg) for arg in sym.args[0].args)
@@ -278,10 +285,10 @@ class BooleanDiscoveryGame:
     # -------- Exhaustive enumeration with mechanistic dedup --------
     @staticmethod
     def generate_all_expressions(
-        variables: List[str],
-        operators: Set[str],
-        max_depth: int,
-        mechanistic_opts: Dict[str, Any]
+            variables: List[str],
+            operators: Set[str],
+            max_depth: int,
+            mechanistic_opts: Dict[str, Any]
     ) -> List[BooleanExpression]:
         var_symbols = {v: symbols(v) for v in variables}
 
@@ -320,12 +327,12 @@ class BooleanDiscoveryGame:
             be.operators = operators
             be.sympy_expr = s
             be.truth_table = BooleanExpression._compute_truth_table(be)
-            
+
             # Filter out constant expressions (those that don't depend on variables)
             # Check if all truth table values are the same (constant True or False)
             if be.sympy_expr in (sp.true, sp.false):
                 continue
-            
+
             key = be.mechanistic_key(**mechanistic_opts)
             if key not in seen_keys:
                 seen_keys.add(key)
@@ -335,9 +342,9 @@ class BooleanDiscoveryGame:
     # -------- Observations from expressions (consistent across set) --------
     @staticmethod
     def generate_observations_from_expressions(
-        expressions: List[BooleanExpression],
-        n_observations: int,
-        rng: Optional[np.random.Generator] = None
+            expressions: List[BooleanExpression],
+            n_observations: int,
+            rng: Optional[np.random.Generator] = None
     ) -> List[BooleanObservation]:
         if rng is None:
             rng = np.random.default_rng()
@@ -363,12 +370,12 @@ class BooleanDiscoveryGame:
     # -------- Filter compatible expressions --------
     @staticmethod
     def find_all_compatible_expressions(
-        observations: List[BooleanObservation],
-        variables: List[str],
-        operators: Set[str],
-        max_depth: int,
-        mechanistic_opts: Dict[str, Any],
-        pregenerated_exprs: Optional[List[BooleanExpression]] = None
+            observations: List[BooleanObservation],
+            variables: List[str],
+            operators: Set[str],
+            max_depth: int,
+            mechanistic_opts: Dict[str, Any],
+            pregenerated_exprs: Optional[List[BooleanExpression]] = None
     ) -> List[BooleanExpression]:
         if pregenerated_exprs is None:
             all_exprs = BooleanDiscoveryGame.generate_all_expressions(
@@ -390,12 +397,12 @@ class BooleanDiscoveryGame:
     # -------- Dataset generation (x,y only) --------
     @staticmethod
     def generate_game_dataset(
-        n_observations: Optional[int] = None,
-        operator_set: str = 'full',
-        max_depth: int = 2,
-        seed: Optional[int] = None,
-        k_ground_truth: int = 3,
-        mechanistic_opts: Optional[Dict[str, Any]] = None
+            n_observations: Optional[int] = None,
+            operator_set: str = 'full',
+            max_depth: int = 2,
+            seed: Optional[int] = None,
+            k_ground_truth: int = 3,
+            mechanistic_opts: Optional[Dict[str, Any]] = None
     ) -> Dict:
         if seed is not None:
             rng = np.random.default_rng(seed)
@@ -439,8 +446,7 @@ class BooleanDiscoveryGame:
             if tt not in sem_seen:
                 sem_seen.add(tt)
                 gt_candidates.append(e)
-        
-        
+
         # Pick k functions; generate observations consistent across all of them
         best_exprs: List[BooleanExpression] = []
         best_obs: List[BooleanObservation] = []
@@ -509,19 +515,19 @@ class BooleanDiscoveryGame:
 
 class BooleanDatasetGenerator:
     """Generate datasets with all possible observation combinations."""
-    
+
     @staticmethod
     def generate_all_observation_combinations(
-        variables: List[str],
-        operators: Set[str], 
-        max_depth: int,
-        n_observations: int,
-        mechanistic_opts: Dict[str, Any],
-        seed: Optional[int] = None
+            variables: List[str],
+            operators: Set[str],
+            max_depth: int,
+            n_observations: int,
+            mechanistic_opts: Dict[str, Any],
+            seed: Optional[int] = None
     ) -> List[Dict]:
         """
         Generate all possible datasets with exactly n_observations.
-        
+
         Args:
             variables: List of variable names (e.g., ['x', 'y'])
             operators: Set of allowed operators
@@ -529,7 +535,7 @@ class BooleanDatasetGenerator:
             n_observations: Number of observations to include (1, 2, 3, or 4)
             mechanistic_opts: Options for mechanistic deduplication
             seed: Random seed for reproducibility
-            
+
         Returns:
             List of dataset dictionaries, each with a unique observation combination
         """
@@ -537,20 +543,20 @@ class BooleanDatasetGenerator:
             rng = np.random.default_rng(seed)
         else:
             rng = np.random.default_rng()
-            
+
         # Generate all expressions
         all_exprs = BooleanDiscoveryGame.generate_all_expressions(
             variables, operators, max_depth, mechanistic_opts
         )
-        
+
         # Generate all possible inputs for 2 variables
         all_inputs = list(product([0, 1], repeat=len(variables)))
-        
+
         # Generate all combinations of n_observations from 4 possible inputs
         observation_combinations = list(combinations(all_inputs, n_observations))
-        
+
         datasets = []
-        
+
         for obs_combo in observation_combinations:
             # For each combination of inputs, try all possible output assignments
             # With n observations, there are 2^n possible output assignments
@@ -560,7 +566,7 @@ class BooleanDatasetGenerator:
                 for inputs, output in zip(obs_combo, output_assignment):
                     inputs_dict = {var: val for var, val in zip(variables, inputs)}
                     observations.append(BooleanObservation(inputs_dict, output))
-                
+
                 # Find all compatible expressions
                 compatible_exprs = []
                 for expr in all_exprs:
@@ -571,20 +577,20 @@ class BooleanDatasetGenerator:
                             break
                     if is_compatible:
                         compatible_exprs.append(expr)
-                
+
                 # Only create dataset if there are compatible expressions
                 if compatible_exprs:
                     # Create observation description
                     obs_desc = "_".join([f"{inputs[0]}{inputs[1]}" for inputs in obs_combo])
                     out_desc = "".join(map(str, output_assignment))
-                    
+
                     dataset = {
                         "observation_set_id": f"n{n_observations}_inputs_{obs_desc}_outputs_{out_desc}",
                         "n_observations": n_observations,
                         "observation_inputs": [list(inputs) for inputs in obs_combo],
                         "observation_outputs": list(output_assignment),
-                        "observations": [{"inputs": obs.inputs, "output": obs.output, "string": obs.to_string()} 
-                                       for obs in observations],
+                        "observations": [{"inputs": obs.inputs, "output": obs.output, "string": obs.to_string()}
+                                         for obs in observations],
                         "ground_truth_expressions": [
                             {
                                 "formula": expr.formula,
@@ -599,36 +605,36 @@ class BooleanDatasetGenerator:
                         "max_depth": max_depth
                     }
                     datasets.append(dataset)
-        
+
         return datasets
-    
+
     @staticmethod
     def generate_complete_dataset_collection(
-        mechanistic_opts: Dict[str, Any],
-        operator_set: str = 'extended',
-        max_depth: int = 1,
-        seed: Optional[int] = None
+            mechanistic_opts: Dict[str, Any],
+            operator_set: str = 'extended',
+            max_depth: int = 1,
+            seed: Optional[int] = None
     ) -> Dict:
         """
         Generate complete collection of datasets for all observation counts.
-        
+
         Args:
             operator_set: 'basic', 'extended', or 'full'
             max_depth: Maximum expression depth
             seed: Random seed
-            
+
         Returns:
             Dictionary containing all datasets organized by observation count
         """
         variables = ['x', 'y']
         operators = BooleanDiscoveryGame.OPERATOR_SETS.get(operator_set, {'AND', 'OR', 'NOT'})
-        
+
         # mechanistic_opts = {
         #     'apply_commutativity': True,
         #     'apply_idempotence_and_or': True,
         #     'flatten_associativity': True
         # }
-        
+
         print("=" * 60)
         print("GENERATING COMPLETE BOOLEAN DATASET COLLECTION")
         print("=" * 60)
@@ -636,13 +642,13 @@ class BooleanDatasetGenerator:
         print(f"Operators: {operators}")
         print(f"Max depth: {max_depth}")
         print()
-        
+
         # Generate all expressions once to show hypothesis space
         all_exprs = BooleanDiscoveryGame.generate_all_expressions(
             variables, operators, max_depth, mechanistic_opts
         )
         print(f"Total hypothesis space: {len(all_exprs)} expressions")
-        
+
         # Group by semantic equivalence
         semantic_groups = {}
         for expr in all_exprs:
@@ -652,7 +658,7 @@ class BooleanDatasetGenerator:
             semantic_groups[tt].append(expr.formula)
         print(f"Semantically unique functions: {len(semantic_groups)}")
         print()
-        
+
         collection = {
             "metadata": {
                 "variables": variables,
@@ -665,49 +671,53 @@ class BooleanDatasetGenerator:
             },
             "datasets_by_n_observations": {}
         }
-        
+
         # Generate datasets for each observation count
         for n_obs in range(1, 5):  # 1, 2, 3, 4 observations
             print(f"Generating datasets with {n_obs} observation(s)...")
             datasets = BooleanDatasetGenerator.generate_all_observation_combinations(
                 variables, operators, max_depth, n_obs, mechanistic_opts, seed
             )
-            
+
             # Statistics
             unique_gt_counts = set()
             for ds in datasets:
                 unique_gt_counts.add(ds["n_compatible_expressions"])
-            
+
             print(f"  - Generated {len(datasets)} unique observation sets")
             print(f"  - Compatible expression counts: {sorted(unique_gt_counts)}")
-            
+
             collection["datasets_by_n_observations"][n_obs] = datasets
-        
+
         # Update total observation sets count
         total_sets = sum(len(datasets) for datasets in collection["datasets_by_n_observations"].values())
         collection["metadata"]["total_observation_sets"] = total_sets
         print(f"\nTotal observation sets across all n_observations: {total_sets}")
-        
+
         return collection
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate complete Boolean dataset collection with all observation combinations")
+    parser = argparse.ArgumentParser(
+        description="Generate complete Boolean dataset collection with all observation combinations")
     parser.add_argument("--operators", choices=['basic', 'extended', 'full'], default='extended', help="Operator set")
     parser.add_argument("--max-depth", type=int, default=1, help="Maximum expression depth")
-    parser.add_argument("--n-observations", type=int, default=None, help="Generate only datasets with this many observations (1-4). If not specified, generate all.")
+    parser.add_argument("--n-observations", type=int, default=None,
+                        help="Generate only datasets with this many observations (1-4). If not specified, generate all.")
     parser.add_argument("--seed", type=int, default=None, help="Random seed")
     parser.add_argument("--output", type=str, default=None, help="Output JSON file path")
-    
+
     # Mechanistic knobs (defaults align with your earlier choice)
-    parser.add_argument("--mech-no-comm", dest="comm", action="store_false",help="Disable commutativity collapse (ordered children)")
-    parser.add_argument("--mech-no-idem", dest="idem", action="store_false",help="Disable idempotence collapse for AND/OR (keep x AND x)")
-    parser.add_argument("--mech-no-flat", dest="flat", action="store_false",help="Disable associativity flattening")
-    
+    parser.add_argument("--mech-no-comm", dest="comm", action="store_false",
+                        help="Disable commutativity collapse (ordered children)")
+    parser.add_argument("--mech-no-idem", dest="idem", action="store_false",
+                        help="Disable idempotence collapse for AND/OR (keep x AND x)")
+    parser.add_argument("--mech-no-flat", dest="flat", action="store_false", help="Disable associativity flattening")
+
     parser.set_defaults(comm=True, idem=True, flat=True)
 
     args = parser.parse_args()
-    
+
     mechanistic_opts = dict(
         apply_commutativity=args.comm,
         apply_idempotence_and_or=args.idem,
@@ -717,21 +727,21 @@ def main():
     if args.output is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         args.output = f"boolean_datasets_complete_{timestamp}.json"
-    
+
     if args.n_observations is not None:
         # Generate only for specific observation count
         if args.n_observations < 1 or args.n_observations > 4:
             print("Error: n_observations must be between 1 and 4")
             return
-            
+
         variables = ['x', 'y']
         operators = BooleanDiscoveryGame.OPERATOR_SETS.get(args.operators, {'AND', 'OR', 'NOT'})
-        
+
         datasets = BooleanDatasetGenerator.generate_all_observation_combinations(
-            variables, operators, args.max_depth, args.n_observations, 
+            variables, operators, args.max_depth, args.n_observations,
             mechanistic_opts, args.seed
         )
-        
+
         result = {
             "metadata": {
                 "n_observations": args.n_observations,
@@ -752,14 +762,14 @@ def main():
             seed=args.seed,
             mechanistic_opts=mechanistic_opts
         )
-    
+
     # Save to file
     out_path = Path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(out_path, 'w') as f:
         json.dump(result, f, indent=2)
-    
+
     print(f"\nDataset saved to: {args.output}")
     print("=" * 60)
 

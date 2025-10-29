@@ -39,6 +39,23 @@ def _extract_text(resp) -> str:
     return str(resp)
 
 
+def _extract_exclamation_content(response: str) -> str:
+    """
+    Extract content after "!!!!!" from the response.
+
+    Args:
+        response: The LLM's response text
+
+    Returns:
+        The extracted content after "!!!!!", or the original response if not found
+    """
+    # Look for "!!!!!" pattern and extract everything after it
+    match = re.search(r'!{5}(.*)', response, re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return response
+
+
 def _extract_usage(resp):
     u = getattr(resp, "usage", None)
     if not u:
@@ -447,7 +464,10 @@ class QwenLocalLLM(LLMInterface):
         try:
             # Prepare input for Qwen model
             messages = [
-                {"role": "system", "content": "You are an expert in causal inference and graph theory."},
+                {"role": "system", "content":
+                    "You are an expert in causal inference and graph theory."
+                    "Before answering, you must output !!!!! at the beginning of your response to help locate the response."
+                 },
                 {"role": "user", "content": prompt}
             ]
 
@@ -456,7 +476,7 @@ class QwenLocalLLM(LLMInterface):
                 messages,
                 tokenize=False,
                 add_generation_prompt=True,
-                enable_thinking=False
+                enable_thinking=True
             )
 
             # Tokenize input
@@ -473,6 +493,11 @@ class QwenLocalLLM(LLMInterface):
             # Extract generated text
             output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist()
             response = self.tokenizer.decode(output_ids, skip_special_tokens=True)
+
+            print(f"=================initial response=================={response}\n")
+
+            # Extract only the content after !!!!! if present
+            response = _extract_exclamation_content(response)
 
             # Calculate token usage (approximate)
             input_tokens = len(model_inputs.input_ids[0])

@@ -33,7 +33,7 @@ class CausalRAG:
             lowercase=True,
             stop_words=None,
             ngram_range=(1, 2),  # Use both unigrams and bigrams
-            max_features=1000,  # Limit vocabulary size
+            max_features=1000,    # Limit vocabulary size
             token_pattern=r'\b\w+\b'  # Token pattern
         )
         self._build_index()
@@ -164,12 +164,12 @@ class CausalRAG:
         formatted = "\n\n[Reference Examples]\n"
         for i, item in enumerate(examples):
             example = item['example']
-            formatted += f"Example {i + 1} (similarity: {item['similarity']:.2f}):\n"
+            formatted += f"Example {i+1} (similarity: {item['similarity']:.2f}):\n"
             formatted += f"  Input: {'; '.join([obs['string'] for obs in example['input']['observations']])}\n"
             formatted += "  Possible hypotheses:\n"
             # Show more hypotheses but limit to 3 for brevity
             for j, hyp in enumerate(example['hypotheses'][:3]):
-                formatted += f"    {j + 1}. {hyp['hypothesis']}\n"
+                formatted += f"    {j+1}. {hyp['hypothesis']}\n"
                 # Include confidence if available
                 if 'confidence' in hyp:
                     formatted += f"       Explanation ({hyp['confidence']}): {hyp['explanation'][:100]}...\n"

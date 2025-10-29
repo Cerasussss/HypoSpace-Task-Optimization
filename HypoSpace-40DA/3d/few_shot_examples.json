@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "description": "Few-shot examples for 3D structure discovery",
+    "creation_date": "2025-10-27",
+    "version": "1.0"
+  },
+  "examples": [
+    {
+      "id": "example_001",
+      "input": "100000000",
+      "reconstructions": [
+        {
+          "layers": [
+            "100000000"
+          ]
+        },
+        {
+          "layers": [
+            "100000000",
+            "100000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_002",
+      "input": "010000000",
+      "reconstructions": [
+        {
+          "layers": [
+            "010000000"
+          ]
+        },
+        {
+          "layers": [
+            "010000000",
+            "010000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_003",
+      "input": "110000000",
+      "reconstructions": [
+        {
+          "layers": [
+            "110000000"
+          ]
+        },
+        {
+          "layers": [
+            "110000000",
+            "110000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_004",
+      "input": "000010000",
+      "reconstructions": [
+        {
+          "layers": [
+            "000010000"
+          ]
+        },
+        {
+          "layers": [
+            "000010000",
+            "000010000"
+          ]
+        },
+        {
+          "layers": [
+            "000010000",
+            "000010000",
+            "000010000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_005",
+      "input": "101000000",
+      "reconstructions": [
+        {
+          "layers": [
+            "101000000"
+          ]
+        },
+        {
+          "layers": [
+            "101000000",
+            "101000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_006",
+      "input": "000000101",
+      "reconstructions": [
+        {
+          "layers": [
+            "000000101"
+          ]
+        },
+        {
+          "layers": [
+            "000000101",
+            "000000101"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_007",
+      "input": "111000000",
+      "reconstructions": [
+        {
+          "layers": [
+            "111000000"
+          ]
+        },
+        {
+          "layers": [
+            "111000000",
+            "111000000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_008",
+      "input": "000111000",
+      "reconstructions": [
+        {
+          "layers": [
+            "000111000"
+          ]
+        },
+        {
+          "layers": [
+            "000111000",
+            "000111000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_009",
+      "input": "000000111",
+      "reconstructions": [
+        {
+          "layers": [
+            "000000111"
+          ]
+        },
+        {
+          "layers": [
+            "000000111",
+            "000000111"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_010",
+      "input": "100010001",
+      "reconstructions": [
+        {
+          "layers": [
+            "100010001"
+          ]
+        },
+        {
+          "layers": [
+            "100010001",
+            "100010001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_011",
+      "input": "111111000",
+      "reconstructions": [
+        {
+          "layers": [
+            "111111000"
+          ]
+        },
+        {
+          "layers": [
+            "111111000",
+            "111111000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "example_012",
+      "input": "111111111",
+      "reconstructions": [
+        {
+          "layers": [
+            "111111111"
+          ]
+        },
+        {
+          "layers": [
+            "111111111",
+            "111111111"
+          ]
+        },
+        {
+          "layers": [
+            "111111111",
+            "111111111",
+            "111111111"
+          ]
+        }
+      ]
+    }
+  ]
+}

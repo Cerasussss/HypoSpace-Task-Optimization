@@ -1,0 +1,9182 @@
+{
+  "metadata": {
+    "nodes": [
+      "A",
+      "B",
+      "C"
+    ],
+    "min_observations": 1,
+    "max_observations": 3,
+    "samples_per_obs_count": 50,
+    "max_edges": null,
+    "seed": 42,
+    "n_datasets": 90,
+    "generation_date": "2025-10-28T08:09:41.580576"
+  },
+  "datasets": [
+    {
+      "id": "finetune_00001",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00002",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00003",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00004",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00005",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00006",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00007",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00008",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00009",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00010",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00011",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00012",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00013",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00014",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00015",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00016",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00017",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00018",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00019",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00020",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00021",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00022",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00023",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00024",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00025",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00026",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00027",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00028",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00029",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00030",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00031",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00032",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00033",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00034",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00035",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00036",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00037",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00038",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00039",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00040",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00041",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 12,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00042",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00043",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 5,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00044",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00045",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00046",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00047",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00048",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00049",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00050",
+      "n_observations": 1,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00051",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00052",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 3,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00053",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00054",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00055",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00056",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 3,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00057",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00058",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00059",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00060",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00061",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00062",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00063",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00064",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00065",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00066",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 3,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00067",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00068",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00069",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00070",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00071",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00072",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00073",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00074",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00075",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00076",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00077",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00078",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00079",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 4,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00080",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 3,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00081",
+      "n_observations": 2,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00082",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00083",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:1"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "A",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00084",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00085",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:1"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 1
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:1"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00086",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "A"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00087",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00088",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 1,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:1 B:1 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 1,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:1 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        },
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "B",
+              "A"
+            ],
+            [
+              "C",
+              "A"
+            ],
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 2,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00089",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": []
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    },
+    {
+      "id": "finetune_00090",
+      "n_observations": 3,
+      "observations": [
+        {
+          "perturbed_node": "A",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(A) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "B",
+          "effects": {
+            "A": 0,
+            "B": 0,
+            "C": 0
+          },
+          "string": "Perturb(B) -> A:0 B:0 C:0"
+        },
+        {
+          "perturbed_node": "C",
+          "effects": {
+            "A": 0,
+            "B": 1,
+            "C": 0
+          },
+          "string": "Perturb(C) -> A:0 B:1 C:0"
+        }
+      ],
+      "ground_truth_graphs": [
+        {
+          "nodes": [
+            "A",
+            "B",
+            "C"
+          ],
+          "edges": [
+            [
+              "C",
+              "B"
+            ]
+          ]
+        }
+      ],
+      "n_compatible_graphs": 1,
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_edges": null
+    }
+  ]
+}
