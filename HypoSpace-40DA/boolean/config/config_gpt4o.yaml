@@ -1,11 +1,11 @@
 llm:
   type: openrouter
   models:
-    openrouter: "openai/gpt-4o"
+    openrouter: "qwen/qwen3-max"
     openai: Null
     anthropic: Null
   api_keys:
-    openrouter: ""
+    openrouter: "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"
     openai: ""
     anthropic: ""
   temperature: 0.7
@@ -14,4 +14,6 @@ benchmark:
   checkpoint: "checkpoints"
   verbose: true
   output_pattern: "results/{dataset_name}_{model}.json"
-
+  diversity:
+    enable_rag: true
+    examples_file: "few_shot_examples.json"

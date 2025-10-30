@@ -19,7 +19,7 @@ nohup python -u generate_causal_dataset.py \
 Example: for causal dataset with 3 nodes
 ```bash
 nohup python -u run_causal_benchmark.py \
-      --dataset "datasets/node03/n3_all_observations.json" \
+      --dataset "../datasets/node03/n3_all_observations.json" \
       --config "config/config_gpt4o.yaml" \
       --n-samples "30" \
       --query-multiplier "1.0" \
@@ -30,8 +30,8 @@ nohup python -u run_causal_benchmark.py \
 Example: for causal dataset with 3 nodes using local Qwen model
 ```bash
 nohup python -u run_causal_benchmark.py \
-      --dataset "datasets/node03/n3_all_observations.json" \
-      --config "causal/config/config_qwen_local.yaml" \
+      --dataset "../datasets/node03/n3_all_observations.json" \
+      --config "config/config_qwen_local.yaml" \
       --n-samples "30" \
       --query-multiplier "1.0" \
       --seed "33550336" > qwen_local_node03 2>&1 &

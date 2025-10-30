@@ -1,17 +1,17 @@
 """
-Retrieval Augmented Generation (RAG) module for causal graph discovery.
+Universal Retrieval Augmented Generation (RAG) module for all tasks.
 """
 import json
 import numpy as np
-from typing import List, Dict
+from typing import List, Dict, Any
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.cluster import KMeans
 
 
-class CausalRAG:
-    """Retrieval Augmented Generation for causal graph discovery."""
+class UniversalRAG:
+    """Universal Retrieval Augmented Generation for different tasks."""
 
     def __init__(self, examples_file: str = "few_shot_examples.json"):
         """
@@ -33,7 +33,7 @@ class CausalRAG:
             lowercase=True,
             stop_words=None,
             ngram_range=(1, 2),  # Use both unigrams and bigrams
-            max_features=1000,    # Limit vocabulary size
+            max_features=1000,  # Limit vocabulary size
             token_pattern=r'\b\w+\b'  # Token pattern
         )
         self._build_index()
@@ -43,20 +43,39 @@ class CausalRAG:
         # Create text representations of inputs for indexing
         texts = []
         for example in self.examples:
-            obs_strings = [obs['string'] for obs in example['input']['observations']]
-            # Create a more structured representation
-            text = ' | '.join(obs_strings)  # Use pipe to separate observations
+            # Handle different task formats
+            text = self._format_example_for_indexing(example)
             texts.append(text)
 
         # Fit vectorizer and transform texts
         self.example_vectors = self.vectorizer.fit_transform(texts)
-        # Safely get shape information
-        shape_info = getattr(self.example_vectors, 'shape', 'unknown')
-        if hasattr(shape_info, '__getitem__'):
-            features_count = shape_info[1]
-        else:
-            features_count = 'unknown'
-        print(f"Built index with {len(texts)} examples and {features_count} features")
+        print(f"Built index with {len(texts)} examples")
+
+    def _format_example_for_indexing(self, example: Dict) -> str:
+        """Format example for indexing based on task type."""
+        # Causal task format
+        if 'input' in example and 'observations' in example['input']:
+            obs_strings = [obs['string'] for obs in example['input']['observations']]
+            return ' | '.join(obs_strings)
+
+        # Boolean task format
+        if 'observations' in example:
+            obs_strings = [obs['string'] for obs in example['observations']]
+            return ' | '.join(obs_strings)
+
+        # 3D task format (assuming similar structure)
+        if 'inputs' in example:
+            obs_strings = [self._format_3d_observation(obs) for obs in example['inputs']]
+            return ' | '.join(obs_strings)
+
+        # Generic format
+        return str(example.get('input', example))
+
+    def _format_3d_observation(self, obs: Any) -> str:
+        """Format 3D observation for indexing."""
+        if isinstance(obs, dict):
+            return ' '.join([f"{k}:{v}" for k, v in obs.items()])
+        return str(obs)
 
     def retrieve_similar_examples(self, observations: List[Dict], top_k: int = 3) -> List[Dict]:
         """
@@ -70,7 +89,16 @@ class CausalRAG:
             List of similar examples with their hypotheses
         """
         # Create text representation of query observations
-        obs_strings = [obs['string'] for obs in observations]
+        obs_strings = []
+        for obs in observations:
+            if isinstance(obs, dict) and 'string' in obs:
+                obs_strings.append(obs['string'])
+            elif isinstance(obs, dict):
+                # Handle different observation formats
+                obs_strings.append(' '.join([f"{k}:{v}" for k, v in obs.items()]))
+            else:
+                obs_strings.append(str(obs))
+
         query_text = ' | '.join(obs_strings)  # Use same format as index
 
         # Vectorize query
@@ -85,7 +113,6 @@ class CausalRAG:
         # Return examples with similarities above threshold
         results = []
         for idx in top_indices:
-            # Lower the threshold to allow more examples to be returned
             if similarities[idx] > 0.01:  # Minimum similarity threshold
                 results.append({
                     'example': self.examples[idx],
@@ -117,13 +144,16 @@ class CausalRAG:
         for candidate in candidates:
             # Find index of this example
             for i, example in enumerate(self.examples):
-                if example['id'] == candidate['example']['id']:
+                if example.get('id') == candidate['example'].get('id'):
                     candidate_indices.append(i)
                     break
 
         # Get vectors for candidates using proper indexing
         from scipy.sparse import vstack
-        candidate_vectors_list = [self.example_vectors[i] for i in candidate_indices]
+        candidate_vectors_list = [self.example_vectors[i] for i in candidate_indices if
+                                  i < self.example_vectors.shape[0]]
+        if not candidate_vectors_list:
+            return candidates[:top_k]
         candidate_vectors = vstack(candidate_vectors_list)
 
         # Use k-means clustering to select diverse examples
@@ -148,12 +178,13 @@ class CausalRAG:
             print(f"Clustering failed, falling back to simple retrieval: {e}")
             return candidates[:top_k]
 
-    def format_examples_for_prompt(self, examples: List[Dict]) -> str:
+    def format_examples_for_prompt(self, examples: List[Dict], task_type: str = "causal") -> str:
         """
         Format retrieved examples for inclusion in LLM prompt.
 
         Args:
             examples: List of examples with similarity scores
+            task_type: Type of task ("causal", "boolean", "3d")
 
         Returns:
             Formatted string for prompt inclusion
@@ -164,17 +195,36 @@ class CausalRAG:
         formatted = "\n\n[Reference Examples]\n"
         for i, item in enumerate(examples):
             example = item['example']
-            formatted += f"Example {i+1} (similarity: {item['similarity']:.2f}):\n"
-            formatted += f"  Input: {'; '.join([obs['string'] for obs in example['input']['observations']])}\n"
-            formatted += "  Possible hypotheses:\n"
-            # Show more hypotheses but limit to 3 for brevity
-            for j, hyp in enumerate(example['hypotheses'][:3]):
-                formatted += f"    {j+1}. {hyp['hypothesis']}\n"
-                # Include confidence if available
-                if 'confidence' in hyp:
-                    formatted += f"       Explanation ({hyp['confidence']}): {hyp['explanation'][:100]}...\n"
-                else:
-                    formatted += f"       Explanation: {hyp['explanation'][:100]}...\n"
+            formatted += f"Example {i + 1} (similarity: {item['similarity']:.2f}):\n"
+
+            # Format based on task type
+            if task_type == "causal" and 'input' in example and 'observations' in example['input']:
+                formatted += f"  Input: {'; '.join([obs['string'] for obs in example['input']['observations']])}\n"
+                formatted += "  Possible hypotheses:\n"
+                # Show more hypotheses but limit to 3 for brevity
+                for j, hyp in enumerate(example.get('hypotheses', [])[:3]):
+                    formatted += f"    {j + 1}. {hyp.get('hypothesis', hyp.get('expression', 'Unknown'))}\n"
+                    # Include confidence if available
+                    if 'confidence' in hyp:
+                        formatted += f"       Explanation ({hyp['confidence']}): {hyp.get('explanation', 'No explanation')[:100]}...\n"
+                    else:
+                        formatted += f"       Explanation: {hyp.get('explanation', 'No explanation')[:100]}...\n"
+            elif task_type == "boolean" and 'observations' in example:
+                formatted += f"  Input: {'; '.join([obs['string'] for obs in example['observations']])}\n"
+                formatted += "  Possible expressions:\n"
+                for j, expr in enumerate(example.get('ground_truth_expressions', example.get('expressions', []))[:3]):
+                    formatted += f"    {j + 1}. {expr.get('formula', expr.get('expression', 'Unknown'))}\n"
+            elif task_type == "3d" and 'inputs' in example:
+                # Format for 3D task (customize based on actual structure)
+                formatted += f"  Input: {example.get('input', 'Unknown input')}\n"
+                formatted += "  Possible reconstructions:\n"
+                for j, recon in enumerate(example.get('reconstructions', [])[:3]):
+                    formatted += f"    {j + 1}. {recon}\n"
+            else:
+                # Generic format
+                formatted += f"  Input: {example.get('input', 'Unknown input')}\n"
+                formatted += f"  Output: {example.get('output', example.get('hypotheses', 'Unknown output'))}\n"
+
             formatted += "\n"
 
         return formatted
@@ -184,7 +234,7 @@ class CausalRAG:
 if __name__ == "__main__":
     # Test with a sample observation
     try:
-        rag = CausalRAG()
+        rag = UniversalRAG()
 
         test_observations = [
             {
